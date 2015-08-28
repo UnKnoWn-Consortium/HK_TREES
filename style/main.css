@@ -1,0 +1,69 @@
+@charset "UTF-8";
+
+body {
+    width: 100%;
+    height: 100vh;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: inherit;
+    background: linear-gradient(0deg, rgba(235, 235, 235, 1), rgba(200, 200, 200, 1));
+    border-bottom: solid 1px rgba(180, 180, 180, 1);
+    padding: 10px 15px;
+}
+
+header main {
+    text-align: center;
+}
+
+header main img {
+    display: inline-block;
+    background: radial-gradient(rgba(255, 255, 255, 1), rgba(215, 215, 215, 0.8));
+    vertical-align: -40px;
+    width: 100px;
+    height: 100px;
+}
+
+header h1 {
+    display: inline-block;
+    margin-top: 5px;
+    text-align: center;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+
+header aside.btn-group {
+    position: absolute;
+    top: 35px;
+}
+
+header aside.btn-group button{
+    font-size: 18px;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: bold;
+}
+
+.btn-icon {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin-right: 3px;
+}
+
+main#list-space {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: flex-start;
+    margin-top: 120px;
+    height: 5000px;
+    overflow-y: auto;
+}
+
+main#list-space article{
+    border: solid 1px rgba(225, 225, 225, 1);
+    height: 500px;
+    width: 300px;
+}

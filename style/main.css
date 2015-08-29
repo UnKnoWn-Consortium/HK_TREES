@@ -10,9 +10,11 @@ header {
     top: 0;
     left: 0;
     width: inherit;
+    background: -webkit-linear-gradient(90deg, rgba(235, 235, 235, 1), rgba(200, 200, 200, 1));
     background: linear-gradient(0deg, rgba(235, 235, 235, 1), rgba(200, 200, 200, 1));
     border-bottom: solid 1px rgba(180, 180, 180, 1);
     padding: 10px 15px;
+    z-index: 10;
 }
 
 header main {
@@ -21,6 +23,7 @@ header main {
 
 header main img {
     display: inline-block;
+    background: -webkit-radial-gradient(rgba(255, 255, 255, 1), rgba(215, 215, 215, 0.8));
     background: radial-gradient(rgba(255, 255, 255, 1), rgba(215, 215, 215, 0.8));
     vertical-align: -40px;
     width: 100px;
@@ -45,6 +48,21 @@ header aside.btn-group button{
     font-weight: bold;
 }
 
+header aside.btn-group#user-svc {
+    top: 30px;
+    right: 15px;
+}
+
+header aside.btn-group#user-svc img.avatar {
+    width: 35px;
+    height: 35px;
+    margin-right: 3px;
+}
+
+header aside.btn-group#user-svc #username {
+    display: inline-block;
+}
+
 .btn-icon {
     display: inline-block;
     width: 30px;
@@ -53,17 +71,139 @@ header aside.btn-group button{
 }
 
 main#list-space {
+    /*background: url("../img/background/graphy1.png") repeat;*/
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    justify-content: space-between;
+    -webkit-justify-content: space-around;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    -webkit-align-content: flex-start;
+    -ms-flex-line-pack: start;
     align-content: flex-start;
-    margin-top: 120px;
-    height: 5000px;
+    padding-top: 130px;
     overflow-y: auto;
 }
 
-main#list-space article{
-    border: solid 1px rgba(225, 225, 225, 1);
-    height: 500px;
+main#list-space article {
+    position: relative;
+    background: rgba(255, 255, 255, 0.8);
+    border: solid 1px rgba(215, 215, 215, 1);
+    border-radius: 3px;
+    box-shadow: 2px 2px rgba(215, 215, 215, 1);
+    height: 560px;
+    width: 320px;
+    padding: 5px;
+    margin: 5px;
+}
+
+main#list-space article img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     width: 300px;
+    height: 450px;
+}
+
+main#list-space article img:hover {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    -webkit-animation-name: blur-and-white-out;
+    animation-name: blur-and-white-out;
+    -webkit-animation-duration: 2s;
+    animation-duration: 2s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+main#list-space article.central-and-western section {
+    position: absolute;
+    color: rgb(219,233,236);
+    font-family: 'Poiret One', cursive;
+    bottom: 0;
+    right: 10px;
+    text-align: right;
+}
+
+main#list-space article.central-and-western section h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.central-and-western {
+    background: rgba(100, 125, 175, 1) !important;
+}
+
+@-webkit-keyframes blur-and-white-out {
+    0% {
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="1" /></filter></svg>#filter');
+        -webkit-filter: blur(1px);
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="1" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="1" /><feFuncG type="linear" slope="1" /><feFuncB type="linear" slope="1" /></feComponentTransfer></filter></svg>#filter');
+        -webkit-filter: blur(1px) brightness(1);
+        filter: blur(1px) brightness(1);
+    }
+    25% {
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="2" /></filter></svg>#filter');
+        -webkit-filter: blur(2px);
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="2" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="1" /><feFuncG type="linear" slope="1" /><feFuncB type="linear" slope="1" /></feComponentTransfer></filter></svg>#filter');
+        -webkit-filter: blur(2px) brightness(1);
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="2" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="2" /><feFuncG type="linear" slope="2" /><feFuncB type="linear" slope="2" /></feComponentTransfer></filter></svg>#filter');
+        -webkit-filter: blur(2px) brightness(2);
+        filter: blur(2px) brightness(2);
+    }
+    50% {
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="4" /></filter></svg>#filter');
+        -webkit-filter: blur(4px);
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="4" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="2" /><feFuncG type="linear" slope="2" /><feFuncB type="linear" slope="2" /></feComponentTransfer></filter></svg>#filter');
+        -webkit-filter: blur(4px) brightness(2);
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="4" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="3" /><feFuncG type="linear" slope="3" /><feFuncB type="linear" slope="3" /></feComponentTransfer></filter></svg>#filter');
+        -webkit-filter: blur(4px) brightness(3);
+        filter: blur(4px) brightness(3);
+    }
+    100% {
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="8" /></filter></svg>#filter');
+        -webkit-filter: blur(8px);
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="8" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="4" /><feFuncG type="linear" slope="4" /><feFuncB type="linear" slope="4" /></feComponentTransfer></filter></svg>#filter');
+        -webkit-filter: blur(8px) brightness(4);
+        filter: blur(8px) brightness(4);
+    }
+}
+
+@keyframes blur-and-white-out {
+    0% {
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="1" /></filter></svg>#filter');
+        -webkit-filter: blur(1px);
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="1" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="1" /><feFuncG type="linear" slope="1" /><feFuncB type="linear" slope="1" /></feComponentTransfer></filter></svg>#filter');
+        -webkit-filter: blur(1px) brightness(1);
+        filter: blur(1px) brightness(1);
+    }
+    25% {
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="2" /></filter></svg>#filter');
+        -webkit-filter: blur(2px);
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="2" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="1" /><feFuncG type="linear" slope="1" /><feFuncB type="linear" slope="1" /></feComponentTransfer></filter></svg>#filter');
+        -webkit-filter: blur(2px) brightness(1);
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="2" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="2" /><feFuncG type="linear" slope="2" /><feFuncB type="linear" slope="2" /></feComponentTransfer></filter></svg>#filter');
+        -webkit-filter: blur(2px) brightness(2);
+        filter: blur(2px) brightness(2);
+    }
+    50% {
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="4" /></filter></svg>#filter');
+        -webkit-filter: blur(4px);
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="4" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="2" /><feFuncG type="linear" slope="2" /><feFuncB type="linear" slope="2" /></feComponentTransfer></filter></svg>#filter');
+        -webkit-filter: blur(4px) brightness(2);
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="4" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="3" /><feFuncG type="linear" slope="3" /><feFuncB type="linear" slope="3" /></feComponentTransfer></filter></svg>#filter');
+        -webkit-filter: blur(4px) brightness(3);
+        filter: blur(4px) brightness(3);
+    }
+    100% {
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="8" /></filter></svg>#filter');
+        -webkit-filter: blur(8px);
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="8" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="4" /><feFuncG type="linear" slope="4" /><feFuncB type="linear" slope="4" /></feComponentTransfer></filter></svg>#filter');
+        -webkit-filter: blur(8px) brightness(4);
+        filter: blur(8px) brightness(4);
+    }
 }

@@ -28,6 +28,15 @@ header main img {
     vertical-align: -40px;
     width: 100px;
     height: 100px;
+    cursor: pointer;
+}
+
+header main img:hover {
+    border: solid 1px rgba(200, 200, 200,1);
+}
+
+header ul.dropdown-menu {
+    font-size: 16px;
 }
 
 header h1 {
@@ -101,17 +110,61 @@ main#list-space article {
     margin: 5px;
 }
 
-main#list-space article img {
+main#list-space article .photo-container {
+    position: relative;
+    margin: 10px auto;
+    width: 300px;
+    height: 450px;
+    z-index: 1;
+}
+
+main#list-space article .photo-container .photo {
+    height: 100%;
+    width: 100%;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transition-duration: 2s;
+    transition-duration: 2s;
+}
+
+main#list-space article .photo-container .photo .face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+main#list-space article .photo-container .photo .face.back {
+    display: block;
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    box-sizing: border-box;
+    padding: 10px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 1);
+}
+
+main#list-space article .photo-container .photo .face img {
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 300px;
     height: 450px;
+    object-fit: cover;
+    padding: 4px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
-main#list-space article img:hover {
+main#list-space article .photo-container:hover .photo {
     -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
+}
+
+main#list-space article .photo-container:hover .photo .face img {
     -webkit-animation-name: blur-and-white-out;
     animation-name: blur-and-white-out;
     -webkit-animation-duration: 2s;
@@ -120,7 +173,27 @@ main#list-space article img:hover {
     animation-fill-mode: both;
 }
 
-main#list-space article.central-and-western section {
+main#list-space article .photo-container:hover .photo .face.back img {
+    -webkit-animation: none;
+    animation: none;
+}
+
+main#list-space article .photo-container .photo.face.back .notice {
+    text-align: center;
+    font-family: 'Graduate', cursive;
+    color: rgba(0, 0, 0, 1);
+}
+
+main#list-space article .photo-container .photo .face.back.notice h4{
+    margin-top: 20px;
+}
+
+main#list-space article .photo-container .photo .face.back.notice button{
+    margin-top: 40px;
+}
+
+
+main#list-space article.central-and-western section.location {
     position: absolute;
     color: rgb(219,233,236);
     font-family: 'Poiret One', cursive;
@@ -129,44 +202,46 @@ main#list-space article.central-and-western section {
     text-align: right;
 }
 
-main#list-space article.central-and-western section h3 {
+main#list-space article section.location h3 {
     margin-top: 0;
     margin-bottom: 5px;
+}
+
+.icon-removed {
+    cursor: default !important;
+    width: 150px !important;
+    height: auto !important;
+    padding: 0 !important;
+    border: none !important;
 }
 
 .central-and-western {
     background: rgba(100, 125, 175, 1) !important;
 }
 
+.removed {
+    filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feColorMatrix type="matrix" color-interpolation-filters="sRGB" values="0.393 0.769 0.189 0 0 0.349 0.686 0.168 0 0 0.272 0.534 0.131 0 0 0 0 0 1 0" /></filter></svg>#filter');
+    -webkit-filter: sepia(100%);
+    filter: sepia(100%)
+}
+
 @-webkit-keyframes blur-and-white-out {
     0% {
-        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="1" /></filter></svg>#filter');
-        -webkit-filter: blur(1px);
-        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="1" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="1" /><feFuncG type="linear" slope="1" /><feFuncB type="linear" slope="1" /></feComponentTransfer></filter></svg>#filter');
-        -webkit-filter: blur(1px) brightness(1);
-        filter: blur(1px) brightness(1);
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="1" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="2" /><feFuncG type="linear" slope="2" /><feFuncB type="linear" slope="2" /></feComponentTransfer></filter></svg>#filter');
+        -webkit-filter: blur(1px) brightness(2);
+        filter: blur(1px) brightness(2);
     }
     25% {
-        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="2" /></filter></svg>#filter');
-        -webkit-filter: blur(2px);
-        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="2" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="1" /><feFuncG type="linear" slope="1" /><feFuncB type="linear" slope="1" /></feComponentTransfer></filter></svg>#filter');
-        -webkit-filter: blur(2px) brightness(1);
-        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="2" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="2" /><feFuncG type="linear" slope="2" /><feFuncB type="linear" slope="2" /></feComponentTransfer></filter></svg>#filter');
-        -webkit-filter: blur(2px) brightness(2);
-        filter: blur(2px) brightness(2);
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="2" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="3" /><feFuncG type="linear" slope="3" /><feFuncB type="linear" slope="3" /></feComponentTransfer></filter></svg>#filter');
+        -webkit-filter: blur(2px) brightness(3);
+        filter: blur(2px) brightness(3);
     }
     50% {
-        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="4" /></filter></svg>#filter');
-        -webkit-filter: blur(4px);
-        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="4" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="2" /><feFuncG type="linear" slope="2" /><feFuncB type="linear" slope="2" /></feComponentTransfer></filter></svg>#filter');
-        -webkit-filter: blur(4px) brightness(2);
-        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="4" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="3" /><feFuncG type="linear" slope="3" /><feFuncB type="linear" slope="3" /></feComponentTransfer></filter></svg>#filter');
-        -webkit-filter: blur(4px) brightness(3);
-        filter: blur(4px) brightness(3);
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="4" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="4" /><feFuncG type="linear" slope="4" /><feFuncB type="linear" slope="4" /></feComponentTransfer></filter></svg>#filter');
+        -webkit-filter: blur(4px) brightness(4);
+        filter: blur(4px) brightness(4);
     }
     100% {
-        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="8" /></filter></svg>#filter');
-        -webkit-filter: blur(8px);
         filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="8" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="4" /><feFuncG type="linear" slope="4" /><feFuncB type="linear" slope="4" /></feComponentTransfer></filter></svg>#filter');
         -webkit-filter: blur(8px) brightness(4);
         filter: blur(8px) brightness(4);
@@ -175,33 +250,21 @@ main#list-space article.central-and-western section h3 {
 
 @keyframes blur-and-white-out {
     0% {
-        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="1" /></filter></svg>#filter');
-        -webkit-filter: blur(1px);
-        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="1" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="1" /><feFuncG type="linear" slope="1" /><feFuncB type="linear" slope="1" /></feComponentTransfer></filter></svg>#filter');
-        -webkit-filter: blur(1px) brightness(1);
-        filter: blur(1px) brightness(1);
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="1" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="2" /><feFuncG type="linear" slope="2" /><feFuncB type="linear" slope="2" /></feComponentTransfer></filter></svg>#filter');
+        -webkit-filter: blur(1px) brightness(2);
+        filter: blur(1px) brightness(2);
     }
     25% {
-        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="2" /></filter></svg>#filter');
-        -webkit-filter: blur(2px);
-        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="2" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="1" /><feFuncG type="linear" slope="1" /><feFuncB type="linear" slope="1" /></feComponentTransfer></filter></svg>#filter');
-        -webkit-filter: blur(2px) brightness(1);
-        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="2" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="2" /><feFuncG type="linear" slope="2" /><feFuncB type="linear" slope="2" /></feComponentTransfer></filter></svg>#filter');
-        -webkit-filter: blur(2px) brightness(2);
-        filter: blur(2px) brightness(2);
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="2" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="3" /><feFuncG type="linear" slope="3" /><feFuncB type="linear" slope="3" /></feComponentTransfer></filter></svg>#filter');
+        -webkit-filter: blur(2px) brightness(3);
+        filter: blur(2px) brightness(3);
     }
     50% {
-        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="4" /></filter></svg>#filter');
-        -webkit-filter: blur(4px);
-        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="4" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="2" /><feFuncG type="linear" slope="2" /><feFuncB type="linear" slope="2" /></feComponentTransfer></filter></svg>#filter');
-        -webkit-filter: blur(4px) brightness(2);
-        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="4" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="3" /><feFuncG type="linear" slope="3" /><feFuncB type="linear" slope="3" /></feComponentTransfer></filter></svg>#filter');
-        -webkit-filter: blur(4px) brightness(3);
-        filter: blur(4px) brightness(3);
+        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="4" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="4" /><feFuncG type="linear" slope="4" /><feFuncB type="linear" slope="4" /></feComponentTransfer></filter></svg>#filter');
+        -webkit-filter: blur(4px) brightness(4);
+        filter: blur(4px) brightness(4);
     }
     100% {
-        filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="8" /></filter></svg>#filter');
-        -webkit-filter: blur(8px);
         filter: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg"><filter id="filter"><feGaussianBlur stdDeviation="8" /><feComponentTransfer color-interpolation-filters="sRGB"><feFuncR type="linear" slope="4" /><feFuncG type="linear" slope="4" /><feFuncB type="linear" slope="4" /></feComponentTransfer></filter></svg>#filter');
         -webkit-filter: blur(8px) brightness(4);
         filter: blur(8px) brightness(4);

@@ -3,8 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Hong Kong Tree Database</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-title" content="Hong Kong Tree Database">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="icon" type="image/png" sizes="192x192"  href="">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="img/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
+    <link rel="icon" type="image/x-icon" sizes="16x16" href="img/favicon/favicon.ico">
     <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'> -->
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700|Poiret+One' rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700|Poiret+One|Graduate' rel="stylesheet" type="text/css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"  type="text/css">
     <link href="style/main.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -32,37 +41,91 @@
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#">Settings</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span> User</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
             </ul>
         </aside>
     </header>
     <main id="list-space">
         <article class="central-and-western">
-            <img alt="200x300" src="data/photo/hyd_hk_11sw_b_r74_0_wt2.jpg" class="img-thumbnail">
-            <section class="region">
+            <div class="photo-container">
+                <div class="photo">
+                    <div class="face">
+                        <img alt="tree photo" src="data/photo/hyd_hk_11sw_b_r74_0_wt2.jpg">
+                    </div>
+                    <div class="back face">
+
+                    </div>
+                </div>
+            </div>
+            <section class="location">
                 <h3>Arbuthnot Road</h3>
                 <h3>Central and Western</h3>
             </section>
         </article>
         <article class="central-and-western">
-            <img alt="200x300" src="data/photo/hyd_hk_11sw_b_r74_0_wt3.jpg" class="img-thumbnail">
-            <section class="region">
+            <div class="photo-container">
+                <div class="photo">
+                    <div class="face">
+                        <img alt="tree photo" src="data/photo/hyd_hk_11sw_b_r74_0_wt3.jpg" class="removed">
+                    </div>
+                    <div class="notice back face">
+                        <section class="special-notice">
+                            <img alt="removed" src="img/removed.svg" class="icon-removed">
+                            <h3>Removed on </h3>
+                            <h3>5th June 2015</h3>
+                            <h4>due to</h4>
+                            <h3>Trunk Failure</h3>
+                            <button class="btn btn-primary btn-block">Read Previous Records</button>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <section class="location">
                 <h3>Arbuthnot Road</h3>
                 <h3>Central and Western</h3>
             </section>
         </article>
         <article class="central-and-western">
-            <img alt="200x300" src="data/photo/hyd_hk_11sw_b_r74_0_wt4.jpg" class="img-thumbnail">
-            <section class="region">
+            <div class="photo-container">
+                <div class="photo">
+                    <div class="face">
+                        <img alt="tree photo" src="data/photo/hyd_hk_11sw_b_r74_0_wt4.jpg">
+                    </div>
+                    <div class="back face">
+                        <section class="info">
+
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <section class="location">
                 <h3>Arbuthnot Road</h3>
                 <h3>Central and Western</h3>
             </section>
         </article>
-        <article>
-            <img alt="200x300" src="" class="img-thumbnail">
+        <article class="central-and-western">
+            <div class="photo-container">
+                <div class="photo">
+                    <div class="face">
+                        <img alt="tree photo" src="data/photo/hyd_hk_11sw_b_r530_0_wt1.jpg">
+                    </div>
+                    <div class="back face">
+                        <section class="info">
+
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <section class="location">
+                <h3>Borrett Road</h3>
+                <h3>Central and Western</h3>
+            </section>
         </article>
+
+
         <article>
             <img alt="200x300" src="" class="img-thumbnail">
         </article>

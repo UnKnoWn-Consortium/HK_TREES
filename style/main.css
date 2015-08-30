@@ -178,17 +178,18 @@ main#list-space article .photo-container:hover .photo .face.back img {
     animation: none;
 }
 
-main#list-space article .photo-container .photo.face.back .notice {
+main#list-space article .photo-container .photo .face.back {
+    overflow-y: auto;
     text-align: center;
     font-family: 'Graduate', cursive;
     color: rgba(0, 0, 0, 1);
 }
 
-main#list-space article .photo-container .photo .face.back.notice h4{
+main#list-space article .photo-container .photo .face.back h4{
     margin-top: 20px;
 }
 
-main#list-space article .photo-container .photo .face.back.notice button{
+main#list-space article .photo-container .photo .face.back  button{
     margin-top: 40px;
 }
 
@@ -196,10 +197,14 @@ main#list-space article .photo-container .photo .face.back.notice button{
 main#list-space article.central-and-western section.location {
     position: absolute;
     color: rgb(219,233,236);
-    font-family: 'Poiret One', cursive;
+    font-family: 'Open Sans Condensed', serif;
     bottom: 0;
     right: 10px;
     text-align: right;
+}
+
+main#list-space article.central-and-western section.location h3:last-child {
+    font-weight: bold;
 }
 
 main#list-space article section.location h3 {

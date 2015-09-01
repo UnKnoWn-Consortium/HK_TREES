@@ -52,20 +52,29 @@
         <article class="central-and-western">
             <div class="photo-container">
                 <div class="photo">
-                    <div class="face">
+                    <div class="front face">
                         <img alt="tree photo" src="data/photo/hyd_hk_11sw_b_r74_0_wt2.jpg">
                     </div>
                     <div class="back face">
                         <section class="info">
-                            <h3>A Stone Wall Tree</h3>
-                            <h4>of</h4>
-                            <h3>Ficus Microcarpa</h3>
-                            <h4>on a </h4>
-                            <h3>SIMAR Slope (11swb/r74)</h3>
-                            <h4>Owned by</h4>
-                            <h3>The Government</h3>
-                            <h4>Managed by</h4>
-                            <h3>Highways Department</h3>
+                            <div class="species plate">
+                                <div class="part owner">
+                                    <h1 data-toggle="tooltip" title="Stone Wall Tree">GOV</h1>
+                                    <img alt="Stone Wall Tree" src="img/stone-wall-tree.svg" class="icon" data-toggle="tooltip" title="Stone Wall Tree">
+                                </div>
+                                <div class="part species">
+                                    <h1>Ficus Microcarpa</h1>
+                                </div>
+                            </div>
+                            <div class="register plate">
+                                <div class="part department">
+                                    <h1>HYD</h1>
+                                    <img alt="Highways Department" src="img/govt/hyd.png" class="icon" data-toggle="tooltip" title="Highways Department">
+                                </div>
+                                <div class="part number">
+                                    <h1>CW/002</h1>
+                                </div>
+                            </div>
                         </section>
                     </div>
                 </div>
@@ -78,21 +87,37 @@
         <article class="central-and-western">
             <div class="photo-container">
                 <div class="photo">
-                    <div class="face">
+                    <div class="front face">
                         <img alt="tree photo" src="data/photo/hyd_hk_11sw_b_r74_0_wt3.jpg" class="removed">
                     </div>
                     <div class="notice back face">
+                        <section class="info">
+                            <div class="species plate">
+                                <div class="part owner">
+                                    <h1>GOV</h1>
+                                    <img alt="Stone Wall Tree" src="img/stone-wall-tree.svg" class="icon" data-toggle="tooltip" title="Stone Wall Tree">
+                                </div>
+                                <div class="part species">
+                                    <h1>Ficus Virens Var. Sublanceolata</h1>
+                                </div>
+                            </div>
+                            <div class="register plate">
+                                <div class="part department">
+                                    <h1>HYD</h1>
+                                    <img alt="Highways Department" src="img/govt/hyd.png" class="icon" data-toggle="tooltip" title="Highways Department">
+                                </div>
+                                <div class="part number">
+                                    <h1>CW/003</h1>
+                                </div>
+                            </div>
+                        </section>
                         <section class="special-notice">
-                            <img alt="removed" src="img/removed.svg" class="icon-removed">
                             <h3>Removed on </h3>
                             <h3>5th June 2015</h3>
                             <h4>due to</h4>
                             <h3>Trunk Failure</h3>
                             <button class="btn btn-primary btn-block">Read Previous Records</button>
                         </section>
-                        <section class="info">
-
-                        </section>
                     </div>
                 </div>
             </div>
@@ -104,12 +129,29 @@
         <article class="central-and-western">
             <div class="photo-container">
                 <div class="photo">
-                    <div class="face">
+                    <div class="front face">
                         <img alt="tree photo" src="data/photo/hyd_hk_11sw_b_r74_0_wt4.jpg">
                     </div>
                     <div class="back face">
                         <section class="info">
-
+                            <div class="species plate">
+                                <div class="part owner">
+                                    <h1>GOV</h1>
+                                    <img alt="Stone Wall Tree" src="img/stone-wall-tree.svg" class="icon" data-toggle="tooltip" title="Stone Wall Tree">
+                                </div>
+                                <div class="part species">
+                                    <h1>Ficus Virens Var. Sublanceolata</h1>
+                                </div>
+                            </div>
+                            <div class="register plate">
+                                <div class="part department">
+                                    <h1>HYD</h1>
+                                    <img alt="Highways Department" src="img/govt/hyd.png" class="icon" data-toggle="tooltip" title="Highways Department">
+                                </div>
+                                <div class="part number">
+                                    <h1>CW/004</h1>
+                                </div>
+                            </div>
                         </section>
                     </div>
                 </div>
@@ -122,12 +164,29 @@
         <article class="central-and-western">
             <div class="photo-container">
                 <div class="photo">
-                    <div class="face">
+                    <div class="front face">
                         <img alt="tree photo" src="data/photo/hyd_hk_11sw_b_r530_0_wt1.jpg">
                     </div>
                     <div class="back face">
                         <section class="info">
-
+                            <div class="species plate">
+                                <div class="part owner">
+                                    <h1>GOV</h1>
+                                    <img alt="Stone Wall Tree" src="img/stone-wall-tree.svg" class="icon" data-toggle="tooltip" title="Stone Wall Tree">
+                                </div>
+                                <div class="part species">
+                                    <h1>Ficus Microcarpa</h1>
+                                </div>
+                            </div>
+                            <div class="register plate">
+                                <div class="part department">
+                                    <h1>HYD</h1>
+                                    <img alt="Highways Department" src="img/govt/hyd.png" class="icon" data-toggle="tooltip" title="Highways Department">
+                                </div>
+                                <div class="part number">
+                                    <h1>CW/007</h1>
+                                </div>
+                            </div>
                         </section>
                     </div>
                 </div>
@@ -155,5 +214,16 @@
             <img alt="200x300" src="" class="img-thumbnail">
         </article>
     </main>
+    <script>
+        var app = angular.module()
+        (function(){
+            $('[data-toggle="tooltip"]').tooltip();
+            var photo = $(".photo-container");
+            photo.on('click', function(evt){
+                photo.removeClass("flip");
+                $(this).addClass("flip");
+            })
+        })();
+    </script>
 </body>
 </html>

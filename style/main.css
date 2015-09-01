@@ -1,5 +1,15 @@
 @charset "UTF-8";
 
+@font-face {
+    font-family: 'GLNummernschildEng';
+    src: url('fonts/GLNummernschildEng.eot');
+    src: url('fonts/GLNummernschildEng.eot') format('embedded-opentype'),
+         url('fonts/GLNummernschildEng.woff2') format('woff2'),
+         url('fonts/GLNummernschildEng.woff') format('woff'),
+         url('fonts/GLNummernschildEng.ttf') format('truetype'),
+         url('fonts/GLNummernschildEng.svg#GLNummernschildEng') format('svg');
+}
+
 body {
     width: 100%;
     height: 100vh;
@@ -159,23 +169,18 @@ main#list-space article .photo-container .photo .face img {
     cursor: pointer;
 }
 
-main#list-space article .photo-container:hover .photo {
+main#list-space article .photo-container.flip .photo {
     -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
 }
 
-main#list-space article .photo-container:hover .photo .face img {
+main#list-space article .photo-container.flip .photo .front.face img {
     -webkit-animation-name: blur-and-white-out;
     animation-name: blur-and-white-out;
     -webkit-animation-duration: 2s;
     animation-duration: 2s;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
-}
-
-main#list-space article .photo-container:hover .photo .face.back img {
-    -webkit-animation: none;
-    animation: none;
 }
 
 main#list-space article .photo-container .photo .face.back {
@@ -189,10 +194,68 @@ main#list-space article .photo-container .photo .face.back h4{
     margin-top: 20px;
 }
 
-main#list-space article .photo-container .photo .face.back  button{
+main#list-space article .photo-container .photo .face.back button{
     margin-top: 40px;
 }
 
+main#list-space article .photo-container .photo .face.back section.info .plate {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: start;
+    align-items: center;
+    font-family: 'GLNummernschildEng', sans-serif;
+    width: 260px;
+    border: solid 2px rgba(25, 25, 25, 1);
+    border-radius: 5px;
+    margin: 0 auto 5px;
+    padding-left: 10px;
+}
+
+main#list-space article .photo-container .photo .face.back section.info .register.plate h1,
+main#list-space article .photo-container .photo .face.back section.info .species.plate h1 {
+    display: inline-block;
+    font-size: 52px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+main#list-space article .photo-container .photo .face.back section.info .species.plate .part.species h1 {
+    display: inline-block;
+    font-family: 'GLNummernschildEng', sans-serif;
+    font-size: 32px;
+    line-height: 0.9;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+main#list-space article .photo-container .photo .face.back section.info .plate .icon {
+    padding: 0;
+    height: 35px;
+    width: auto;
+    border-radius: 1px;
+    vertical-align: baseline;
+}
+
+main#list-space article .photo-container .photo .face.back section.info .plate .part {
+    display: inline-block;
+    padding: 2px;
+}
+
+main#list-space article .photo-container .photo .face.back section.info .plate .department {
+    background-color: rgba(0, 36, 125, 1);
+    color: rgba(255, 255, 255, 1);
+}
+
+main#list-space article .photo-container .photo .face.back section.info .plate .owner {
+    background-color: rgba(25, 103, 65, 1);
+    color: rgba(255, 255, 255, 1);
+}
+
+main#list-space article .photo-container .photo .face.back section.info .register.plate .number {
+    vertical-align: -18px;
+    flex-grow: 2;
+}
 
 main#list-space article.central-and-western section.location {
     position: absolute;
@@ -210,14 +273,6 @@ main#list-space article.central-and-western section.location h3:last-child {
 main#list-space article section.location h3 {
     margin-top: 0;
     margin-bottom: 5px;
-}
-
-.icon-removed {
-    cursor: default !important;
-    width: 150px !important;
-    height: auto !important;
-    padding: 0 !important;
-    border: none !important;
 }
 
 .central-and-western {

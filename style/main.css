@@ -143,6 +143,10 @@ main#list-space article section.photo-container .photo .face {
     height: 100%;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 main#list-space article section.photo-container .photo .face.back {
@@ -190,11 +194,18 @@ main#list-space article section.photo-container .photo .face.back {
     color: rgba(0, 0, 0, 1);
 }
 
-main#list-space article section.photo-container .photo .face.back h4{
+main#list-space article section.photo-container .photo .face.back h4 {
     margin-top: 20px;
 }
 
-main#list-space article section.photo-container .photo .face.back button{
+main#list-space article section.photo-container .photo .face.back .special-notice {
+    display: inline-block;
+    border: solid 2px rgba(25, 25, 25, 1);
+    border-radius: 5px;
+    width: 260px;
+}
+
+main#list-space article section.photo-container .photo .face.back button {
     margin-top: 40px;
 }
 
@@ -229,12 +240,18 @@ main#list-space article section.photo-container .photo .face.back section.info .
     margin-bottom: 0;
 }
 
-main#list-space article section.photo-container .photo .face.back section.info .plate .icon {
+main#list-space article section.photo-container .photo .face.back section.info .plate img.icon {
     padding: 0;
     height: 35px;
     width: auto;
     border-radius: 1px;
     vertical-align: baseline;
+}
+
+main#list-space article section.photo-container .photo .face.back section.info .plate div.icon {
+    margin: 0 auto;
+    height: 36px;
+    width: 36px;
 }
 
 main#list-space article section.photo-container .photo .face.back section.info .plate .part {

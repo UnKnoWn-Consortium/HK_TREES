@@ -7,12 +7,12 @@
     <meta name="apple-mobile-web-app-title" content="Hong Kong Tree Database">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="icon" type="image/png" sizes="192x192"  href="">
+    <!-- <link rel="icon" type="image/png" sizes="192x192"  href="">
     <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="img/favicon/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
     <link rel="icon" type="image/x-icon" sizes="16x16" href="img/favicon/favicon.ico">
-    <!-- <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'> -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'> -->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700|Poiret+One|Graduate' rel="stylesheet" type="text/css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"  type="text/css">
     <link href="style/main.css" rel="stylesheet">
@@ -48,20 +48,22 @@
             </ul>
         </aside>
     </header>
-    <main id="list-space" data-controller="cardCtrl as ctrl">
+    <main id="list-space" data-ng-controller="cardSpaceCtrl as parentCtrl">
 
-        <article class="central-and-western" data-ng-repeat="tree in ctrl.trees">
-            <section class="photo-container">
+        <article class="central-and-western" data-ng-repeat="tree in parentCtrl.trees" data-ng-controller="cardCtrl as ctrl">
+            <section class="photo-container" data-ng-click="ctrl.toggleBackFace()" data-ng-class="{'flip': ctrl.backFace}">
                 <div class="photo">
                     <div class="front face">
-                        <img data-ng-repeat="photo in tree.photos" alt="tree photo {{$index}}" data-ng-src="data/tree_photos/{{photo.path}}">
+                        <img data-ng-repeat="photo in tree.photos" alt="tree photo {{$index}}" data-ng-src="data/tree_photos/{{photo.path}}" data-ng-class="{removed: tree.removed}">
                     </div>
                     <div class="back face">
                         <section class="info">
                             <div class="species plate">
                                 <div class="part owner">
                                     <h1>GOV</h1>
-                                    <img data-ng-if="tree.stone_wall_tree" alt="Stone Wall Tree" src="img/stone-wall-tree.svg" class="icon">
+                                    <div class="icon">
+                                        <img data-ng-if="tree.stone_wall_tree" alt="Stone Wall Tree" src="img/stone-wall-tree.svg" class="icon">
+                                    </div>
                                 </div>
                                 <div class="part species">
                                     <h1 data-ng-bind="tree.species"></h1>
@@ -70,202 +72,38 @@
                             <div class="register plate">
                                 <div class="part department">
                                     <h1>HYD</h1>
-                                    <img alt="Highways Department" src="img/govt_dept/hyd.png" class="icon">
+                                    <div>
+                                        <img alt="Highways Department" src="img/govt_dept/hyd.png" class="icon">
+                                    </div>
                                 </div>
                                 <div class="part number">
                                     <h1 data-ng-bind="tree.register_no"></h1>
                                 </div>
                             </div>
-                        </section>
-                    </div>
-                </div>
-            </section>
-            <section class="special-notice" data-ng-if="tree.removed">
-                <h3>Removed on </h3>
-                <h3 data-ng-bind="tree.removed_date"></h3>
-                <h4>due to</h4>
-                <h3 data-ng-repeat="reason in tree.removed_reasons" data-ng-bind="reason"></h3>
-
-                <button class="btn btn-primary btn-block">Read Previous Records</button> // move to parent
-            </section>
-            <section class="location">
-                <h3>Arbuthnot Road</h3>
-                <h3>Central and Western</h3>
-            </section>
-        </article>
-
-        <!--
-        <article class="central-and-western">
-            <div class="photo-container">
-                <div class="photo">
-                    <div class="front face">
-                        <img alt="tree photo" src="data/tree_photos/hyd_hk_11sw_b_r74_0_wt2.jpg">
-                    </div>
-                    <div class="back face">
-                        <section class="info">
-                            <div class="species plate">
-                                <div class="part owner">
-                                    <h1 data-toggle="tooltip" title="Stone Wall Tree">GOV</h1>
-                                    <img alt="Stone Wall Tree" src="img/stone-wall-tree.svg" class="icon" data-toggle="tooltip" title="Stone Wall Tree">
-                                </div>
-                                <div class="part species">
-                                    <h1>Ficus Microcarpa</h1>
-                                </div>
+                            <div class="special-notice" data-ng-if="tree.removed">
+                                <h3>Removed on </h3>
+                                <h3>{{tree.removed_date | date:"d'th' MMMM yyyy"}}</h3>
+                                <h4>due to</h4>
+                                <h3 data-ng-repeat="reason in tree.removed_reasons" data-ng-bind="reason"></h3>
                             </div>
-                            <div class="register plate">
-                                <div class="part department">
-                                    <h1>HYD</h1>
-                                    <img alt="Highways Department" src="img/govt_dept/hyd.png" class="icon" data-toggle="tooltip" title="Highways Department">
-                                </div>
-                                <div class="part number">
-                                    <h1>CW/002</h1>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                </div>
-            </div>
-            <section class="location">
-                <h3>Arbuthnot Road</h3>
-                <h3>Central and Western</h3>
-            </section>
-        </article>
-        <article class="central-and-western">
-            <div class="photo-container">
-                <div class="photo">
-                    <div class="front face">
-                        <img alt="tree photo" src="data/tree_photos/hyd_hk_11sw_b_r74_0_wt3.jpg" class="removed">
-                    </div>
-                    <div class="notice back face">
-                        <section class="info">
-                            <div class="species plate">
-                                <div class="part owner">
-                                    <h1>GOV</h1>
-                                    <img alt="Stone Wall Tree" src="img/stone-wall-tree.svg" class="icon" data-toggle="tooltip" title="Stone Wall Tree">
-                                </div>
-                                <div class="part species">
-                                    <h1>Ficus Virens Var. Sublanceolata</h1>
-                                </div>
-                            </div>
-                            <div class="register plate">
-                                <div class="part department">
-                                    <h1>HYD</h1>
-                                    <img alt="Highways Department" src="img/govt_dept/hyd.png" class="icon" data-toggle="tooltip" title="Highways Department">
-                                </div>
-                                <div class="part number">
-                                    <h1>CW/003</h1>
-                                </div>
-                            </div>
-                        </section>
-                        <section class="special-notice">
-                            <h3>Removed on </h3>
-                            <h3>5th June 2015</h3>
-                            <h4>due to</h4>
-                            <h3>Trunk Failure</h3>
                             <button class="btn btn-primary btn-block">Read Previous Records</button>
                         </section>
                     </div>
                 </div>
-            </div>
-            <section class="location">
-                <h3>Arbuthnot Road</h3>
-                <h3>Central and Western</h3>
             </section>
-        </article>
-        <article class="central-and-western">
-            <div class="photo-container">
-                <div class="photo">
-                    <div class="front face">
-                        <img alt="tree photo" src="data/tree_photos/hyd_hk_11sw_b_r74_0_wt4.jpg">
-                    </div>
-                    <div class="back face">
-                        <section class="info">
-                            <div class="species plate">
-                                <div class="part owner">
-                                    <h1>GOV</h1>
-                                    <img alt="Stone Wall Tree" src="img/stone-wall-tree.svg" class="icon" data-toggle="tooltip" title="Stone Wall Tree">
-                                </div>
-                                <div class="part species">
-                                    <h1>Ficus Virens Var. Sublanceolata</h1>
-                                </div>
-                            </div>
-                            <div class="register plate">
-                                <div class="part department">
-                                    <h1>HYD</h1>
-                                    <img alt="Highways Department" src="img/govt_dept/hyd.png" class="icon" data-toggle="tooltip" title="Highways Department">
-                                </div>
-                                <div class="part number">
-                                    <h1>CW/004</h1>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                </div>
-            </div>
+
             <section class="location">
-                <h3>Arbuthnot Road</h3>
-                <h3>Central and Western</h3>
-            </section>
-        </article>
-        <article class="central-and-western">
-            <div class="photo-container">
-                <div class="photo">
-                    <div class="front face">
-                        <img alt="tree photo" src="data/tree_photos/hyd_hk_11sw_b_r530_0_wt1.jpg">
-                    </div>
-                    <div class="back face">
-                        <section class="info">
-                            <div class="species plate">
-                                <div class="part owner">
-                                    <h1>GOV</h1>
-                                    <img alt="Stone Wall Tree" src="img/stone-wall-tree.svg" class="icon" data-toggle="tooltip" title="Stone Wall Tree">
-                                </div>
-                                <div class="part species">
-                                    <h1>Ficus Microcarpa</h1>
-                                </div>
-                            </div>
-                            <div class="register plate">
-                                <div class="part department">
-                                    <h1>HYD</h1>
-                                    <img alt="Highways Department" src="img/govt_dept/hyd.png" class="icon" data-toggle="tooltip" title="Highways Department">
-                                </div>
-                                <div class="part number">
-                                    <h1>CW/007</h1>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                </div>
-            </div>
-            <section class="location">
-                <h3>Borrett Road</h3>
-                <h3>Central and Western</h3>
+                <h3 data-ng-bind="tree.location"></h3>
+                <h3 data-ng-bind="tree.district | districtFilter"></h3>
             </section>
         </article>
 
 
-        <article>
-            <img alt="200x300" src="" class="img-thumbnail">
-        </article>
-        <article>
-            <img alt="200x300" src="" class="img-thumbnail">
-        </article>
-        <article>
-            <img alt="200x300" src="" class="img-thumbnail">
-        </article>
-        <article>
-            <img alt="200x300" src="" class="img-thumbnail">
-        </article>
-        <article>
-            <img alt="200x300" src="" class="img-thumbnail">
-        </article>
-        -->
     </main>
     <script>
         var app = angular.module('main', ['ui.bootstrap']);
-        app.controller('cardCtrl', [function(){
-            var trees =[];
-            trees = [{ // Reference object database schema (removed=false)
+        app.controller('cardSpaceCtrl', [function(){
+            this.trees = [{ // Reference object database schema (removed=false)
                 district: "cw",
                 location: "Arbuthnot Road",
                 govt: true,
@@ -274,6 +112,7 @@
                 stone_wall_tree: true,
                 species: "Ficus Microcarpa",
                 register_no: "CW/002",
+                dept_no: "hyd_hk_11sw_b_r74_0_wt2",
                 photos: [{path: "hyd_hk_11sw_b_r74_0_wt2.jpg"}]
             }, { // Reference object database schema (removed=true)
                 district: "cw",
@@ -286,6 +125,7 @@
                 stone_wall_tree: true,
                 species: "Ficus Virens Var. Sublanceolata",
                 register_no: "CW/003",
+                dept_no: "hyd_hk_11sw_b_r74_0_wt3",
                 photos: [{path: "hyd_hk_11sw_b_r74_0_wt3.jpg"}]
             }, {
                 district: "cw",
@@ -296,6 +136,7 @@
                 stone_wall_tree: true,
                 species: "Ficus Virens Var. Sublanceolata",
                 register_no: "CW/004",
+                dept_no: "hyd_hk_11sw_b_r74_0_wt4",
                 photos: [{path: "hyd_hk_11sw_b_r74_0_wt4.jpg"}]
             }, {
                 district: "cw",
@@ -303,15 +144,67 @@
                 govt: true,
                 dept: "hyd",
                 removed: false,
-                stone_wall_tree: true,
+                stone_wall_tree: false,
                 species: "Ficus Microcarpa",
                 register_no: "CW/007",
+                dept_no: "hyd_hk_11sw_b_r530_0_wt1",
                 photos: [{path: "hyd_hk_11sw_b_r530_0_wt1.jpg"}]
             }]
+        }]).controller('cardCtrl', [function(){
+            this.backFace = false;
+            this.toggleBackFace = function(){
+                this.backFace = !this.backFace;
+            };
         }]);
 
         app.filter('districtFilter', [function(){
-
+            var dist_table = {
+                 cw: 'Central and Western',
+                  e: 'Eastern',
+                  s: 'Southern',
+                 wc: 'Wan Chai',
+                 kc: 'Kowloon City',
+                ktn: 'Kwun Tong',
+                ssp: 'Sham Shui Po',
+                wts: 'Wong Tai Sin',
+                ytm: 'Yau Tsim Mong',
+                 is: 'Island',
+                kts: 'Kwai Tsing',
+                  n: 'North',
+                 sk: 'Sai Kung',
+                 st: 'Sha Tin',
+                 tp: 'Tai Po',
+                 tw: 'Tsuen Wan',
+                 tm: 'Tuen Mun',
+                 yl: 'Yuen Long'
+            };
+            return function(input){
+                return dist_table[input];
+            };
+        }]).filter('areaFilter', [function(){
+            var area_table = {
+                 cw: 'Hong Kong',
+                  e: 'Hong Kong',
+                  s: 'Hong Kong',
+                 wc: 'Hong Kong',
+                 kc: 'Kowloon',
+                ktn: 'Kowloon',
+                ssp: 'Kowloon',
+                wts: 'Kowloon',
+                ytm: 'Kowloon',
+                 is: 'New Territories',
+                kts: 'New Territories',
+                  n: 'New Territories',
+                 sk: 'New Territories',
+                 st: 'New Territories',
+                 tp: 'New Territories',
+                 tw: 'New Territories',
+                 tm: 'New Territories',
+                 yl: 'New Territories'
+            };
+            return function(input){
+                return area_table[input];
+            };
         }]);
     </script>
 </body>

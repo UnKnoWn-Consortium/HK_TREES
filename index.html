@@ -17,30 +17,30 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"  type="text/css">
     <link href="style/main.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+    <script src="script/vendor/ui-bootstrap-tpls-0.13.3.min.js"></script>
 </head>
-<body>
+<body data-ng-app="main">
     <header>
         <main>
             <h1>Hong Kong</h1>
-            <img class="img-circle" alt="100x100" src="img/tree_icon.png">
+            <img class="img-circle" alt="100x100" src="img/tree_logo.png">
             <h1>Tree Database</h1>
         </main>
         <aside class="btn-group">
             <button type="button" class="btn btn-default active"><img class="btn-icon" alt="list" src="img/list.svg">List</button>
             <button type="button" class="btn btn-default"><img class="btn-icon" alt="map" src="img/map.svg">Map</button>
         </aside>
-        <aside class="btn-group" id="user-svc">
-            <button type="button" class="btn btn-info">
-                <img class="img-rounded avatar" alt="50x50" src="img/avatar.svg">
+        <aside class="btn-group" id="user-svc" dropdown keyboard-nav>
+            <button id="user" type="button" class="btn btn-info">
+                <img class="img-rounded avatar" alt="50x50" src="data/users/avatars/avatar.svg">
                 <div id="username">Username</div>
             </button>
-            <button type="button" class="btn btn-info dropdown-toggle" style="height: 49px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button type="button" class="btn btn-info dropdown-toggle" style="height: 49px" dropdown-toggle>
                 <span class="caret"></span>
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu" aria-labelledby="user">
                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> User</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
                 <li role="separator" class="divider"></li>
@@ -48,12 +48,58 @@
             </ul>
         </aside>
     </header>
-    <main id="list-space">
+    <main id="list-space" data-controller="cardCtrl as ctrl">
+
+        <article class="central-and-western" data-ng-repeat="tree in ctrl.trees">
+            <section class="photo-container">
+                <div class="photo">
+                    <div class="front face">
+                        <img data-ng-repeat="photo in tree.photos" alt="tree photo {{$index}}" data-ng-src="data/tree_photos/{{photo.path}}">
+                    </div>
+                    <div class="back face">
+                        <section class="info">
+                            <div class="species plate">
+                                <div class="part owner">
+                                    <h1>GOV</h1>
+                                    <img data-ng-if="tree.stone_wall_tree" alt="Stone Wall Tree" src="img/stone-wall-tree.svg" class="icon">
+                                </div>
+                                <div class="part species">
+                                    <h1 data-ng-bind="tree.species"></h1>
+                                </div>
+                            </div>
+                            <div class="register plate">
+                                <div class="part department">
+                                    <h1>HYD</h1>
+                                    <img alt="Highways Department" src="img/govt_dept/hyd.png" class="icon">
+                                </div>
+                                <div class="part number">
+                                    <h1 data-ng-bind="tree.register_no"></h1>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </section>
+            <section class="special-notice" data-ng-if="tree.removed">
+                <h3>Removed on </h3>
+                <h3 data-ng-bind="tree.removed_date"></h3>
+                <h4>due to</h4>
+                <h3 data-ng-repeat="reason in tree.removed_reasons" data-ng-bind="reason"></h3>
+
+                <button class="btn btn-primary btn-block">Read Previous Records</button> // move to parent
+            </section>
+            <section class="location">
+                <h3>Arbuthnot Road</h3>
+                <h3>Central and Western</h3>
+            </section>
+        </article>
+
+        <!--
         <article class="central-and-western">
             <div class="photo-container">
                 <div class="photo">
                     <div class="front face">
-                        <img alt="tree photo" src="data/photo/hyd_hk_11sw_b_r74_0_wt2.jpg">
+                        <img alt="tree photo" src="data/tree_photos/hyd_hk_11sw_b_r74_0_wt2.jpg">
                     </div>
                     <div class="back face">
                         <section class="info">
@@ -69,7 +115,7 @@
                             <div class="register plate">
                                 <div class="part department">
                                     <h1>HYD</h1>
-                                    <img alt="Highways Department" src="img/govt/hyd.png" class="icon" data-toggle="tooltip" title="Highways Department">
+                                    <img alt="Highways Department" src="img/govt_dept/hyd.png" class="icon" data-toggle="tooltip" title="Highways Department">
                                 </div>
                                 <div class="part number">
                                     <h1>CW/002</h1>
@@ -88,7 +134,7 @@
             <div class="photo-container">
                 <div class="photo">
                     <div class="front face">
-                        <img alt="tree photo" src="data/photo/hyd_hk_11sw_b_r74_0_wt3.jpg" class="removed">
+                        <img alt="tree photo" src="data/tree_photos/hyd_hk_11sw_b_r74_0_wt3.jpg" class="removed">
                     </div>
                     <div class="notice back face">
                         <section class="info">
@@ -104,7 +150,7 @@
                             <div class="register plate">
                                 <div class="part department">
                                     <h1>HYD</h1>
-                                    <img alt="Highways Department" src="img/govt/hyd.png" class="icon" data-toggle="tooltip" title="Highways Department">
+                                    <img alt="Highways Department" src="img/govt_dept/hyd.png" class="icon" data-toggle="tooltip" title="Highways Department">
                                 </div>
                                 <div class="part number">
                                     <h1>CW/003</h1>
@@ -130,7 +176,7 @@
             <div class="photo-container">
                 <div class="photo">
                     <div class="front face">
-                        <img alt="tree photo" src="data/photo/hyd_hk_11sw_b_r74_0_wt4.jpg">
+                        <img alt="tree photo" src="data/tree_photos/hyd_hk_11sw_b_r74_0_wt4.jpg">
                     </div>
                     <div class="back face">
                         <section class="info">
@@ -146,7 +192,7 @@
                             <div class="register plate">
                                 <div class="part department">
                                     <h1>HYD</h1>
-                                    <img alt="Highways Department" src="img/govt/hyd.png" class="icon" data-toggle="tooltip" title="Highways Department">
+                                    <img alt="Highways Department" src="img/govt_dept/hyd.png" class="icon" data-toggle="tooltip" title="Highways Department">
                                 </div>
                                 <div class="part number">
                                     <h1>CW/004</h1>
@@ -165,7 +211,7 @@
             <div class="photo-container">
                 <div class="photo">
                     <div class="front face">
-                        <img alt="tree photo" src="data/photo/hyd_hk_11sw_b_r530_0_wt1.jpg">
+                        <img alt="tree photo" src="data/tree_photos/hyd_hk_11sw_b_r530_0_wt1.jpg">
                     </div>
                     <div class="back face">
                         <section class="info">
@@ -181,7 +227,7 @@
                             <div class="register plate">
                                 <div class="part department">
                                     <h1>HYD</h1>
-                                    <img alt="Highways Department" src="img/govt/hyd.png" class="icon" data-toggle="tooltip" title="Highways Department">
+                                    <img alt="Highways Department" src="img/govt_dept/hyd.png" class="icon" data-toggle="tooltip" title="Highways Department">
                                 </div>
                                 <div class="part number">
                                     <h1>CW/007</h1>
@@ -213,17 +259,60 @@
         <article>
             <img alt="200x300" src="" class="img-thumbnail">
         </article>
+        -->
     </main>
     <script>
-        var app = angular.module()
-        (function(){
-            $('[data-toggle="tooltip"]').tooltip();
-            var photo = $(".photo-container");
-            photo.on('click', function(evt){
-                photo.removeClass("flip");
-                $(this).addClass("flip");
-            })
-        })();
+        var app = angular.module('main', ['ui.bootstrap']);
+        app.controller('cardCtrl', [function(){
+            var trees =[];
+            trees = [{ // Reference object database schema (removed=false)
+                district: "cw",
+                location: "Arbuthnot Road",
+                govt: true,
+                dept: "hyd",
+                removed: false,
+                stone_wall_tree: true,
+                species: "Ficus Microcarpa",
+                register_no: "CW/002",
+                photos: [{path: "hyd_hk_11sw_b_r74_0_wt2.jpg"}]
+            }, { // Reference object database schema (removed=true)
+                district: "cw",
+                location: "Arbuthnot Road",
+                govt: true,
+                dept: "hyd",
+                removed: true,
+                removed_date: "2015-06-05T12:00:00.000Z",
+                removed_reasons: ["Trunk Failure"],
+                stone_wall_tree: true,
+                species: "Ficus Virens Var. Sublanceolata",
+                register_no: "CW/003",
+                photos: [{path: "hyd_hk_11sw_b_r74_0_wt3.jpg"}]
+            }, {
+                district: "cw",
+                location: "Arbuthnot Road",
+                govt: true,
+                dept: "hyd",
+                removed: false,
+                stone_wall_tree: true,
+                species: "Ficus Virens Var. Sublanceolata",
+                register_no: "CW/004",
+                photos: [{path: "hyd_hk_11sw_b_r74_0_wt4.jpg"}]
+            }, {
+                district: "cw",
+                location: "Borrett Road",
+                govt: true,
+                dept: "hyd",
+                removed: false,
+                stone_wall_tree: true,
+                species: "Ficus Microcarpa",
+                register_no: "CW/007",
+                photos: [{path: "hyd_hk_11sw_b_r530_0_wt1.jpg"}]
+            }]
+        }]);
+
+        app.filter('districtFilter', [function(){
+
+        }]);
     </script>
 </body>
 </html>

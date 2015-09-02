@@ -120,7 +120,7 @@ main#list-space article {
     margin: 5px;
 }
 
-main#list-space article .photo-container {
+main#list-space article section.photo-container {
     position: relative;
     margin: 10px auto;
     width: 300px;
@@ -128,7 +128,7 @@ main#list-space article .photo-container {
     z-index: 1;
 }
 
-main#list-space article .photo-container .photo {
+main#list-space article section.photo-container .photo {
     height: 100%;
     width: 100%;
     -webkit-transform-style: preserve-3d;
@@ -137,7 +137,7 @@ main#list-space article .photo-container .photo {
     transition-duration: 2s;
 }
 
-main#list-space article .photo-container .photo .face {
+main#list-space article section.photo-container .photo .face {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -145,7 +145,7 @@ main#list-space article .photo-container .photo .face {
     backface-visibility: hidden;
 }
 
-main#list-space article .photo-container .photo .face.back {
+main#list-space article section.photo-container .photo .face.back {
     display: block;
     -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
@@ -155,7 +155,7 @@ main#list-space article .photo-container .photo .face.back {
     background-color: rgba(255, 255, 255, 1);
 }
 
-main#list-space article .photo-container .photo .face img {
+main#list-space article section.photo-container .photo .face img {
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -169,12 +169,12 @@ main#list-space article .photo-container .photo .face img {
     cursor: pointer;
 }
 
-main#list-space article .photo-container.flip .photo {
+main#list-space article section.photo-container.flip .photo {
     -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
 }
 
-main#list-space article .photo-container.flip .photo .front.face img {
+main#list-space article section.photo-container.flip .photo .front.face img {
     -webkit-animation-name: blur-and-white-out;
     animation-name: blur-and-white-out;
     -webkit-animation-duration: 2s;
@@ -183,22 +183,22 @@ main#list-space article .photo-container.flip .photo .front.face img {
     animation-fill-mode: both;
 }
 
-main#list-space article .photo-container .photo .face.back {
+main#list-space article section.photo-container .photo .face.back {
     overflow-y: auto;
     text-align: center;
     font-family: 'Graduate', cursive;
     color: rgba(0, 0, 0, 1);
 }
 
-main#list-space article .photo-container .photo .face.back h4{
+main#list-space article section.photo-container .photo .face.back h4{
     margin-top: 20px;
 }
 
-main#list-space article .photo-container .photo .face.back button{
+main#list-space article section.photo-container .photo .face.back button{
     margin-top: 40px;
 }
 
-main#list-space article .photo-container .photo .face.back section.info .plate {
+main#list-space article section.photo-container .photo .face.back section.info .plate {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -212,15 +212,15 @@ main#list-space article .photo-container .photo .face.back section.info .plate {
     padding-left: 10px;
 }
 
-main#list-space article .photo-container .photo .face.back section.info .register.plate h1,
-main#list-space article .photo-container .photo .face.back section.info .species.plate h1 {
+main#list-space article section.photo-container .photo .face.back section.info .register.plate h1,
+main#list-space article section.photo-container .photo .face.back section.info .species.plate h1 {
     display: inline-block;
     font-size: 52px;
     margin-top: 0;
     margin-bottom: 0;
 }
 
-main#list-space article .photo-container .photo .face.back section.info .species.plate .part.species h1 {
+main#list-space article section.photo-container .photo .face.back section.info .species.plate .part.species h1 {
     display: inline-block;
     font-family: 'GLNummernschildEng', sans-serif;
     font-size: 32px;
@@ -229,7 +229,7 @@ main#list-space article .photo-container .photo .face.back section.info .species
     margin-bottom: 0;
 }
 
-main#list-space article .photo-container .photo .face.back section.info .plate .icon {
+main#list-space article section.photo-container .photo .face.back section.info .plate .icon {
     padding: 0;
     height: 35px;
     width: auto;
@@ -237,22 +237,22 @@ main#list-space article .photo-container .photo .face.back section.info .plate .
     vertical-align: baseline;
 }
 
-main#list-space article .photo-container .photo .face.back section.info .plate .part {
+main#list-space article section.photo-container .photo .face.back section.info .plate .part {
     display: inline-block;
     padding: 2px;
 }
 
-main#list-space article .photo-container .photo .face.back section.info .plate .department {
+main#list-space article section.photo-container .photo .face.back section.info .plate .department {
     background-color: rgba(0, 36, 125, 1);
     color: rgba(255, 255, 255, 1);
 }
 
-main#list-space article .photo-container .photo .face.back section.info .plate .owner {
+main#list-space article section.photo-container .photo .face.back section.info .plate .owner {
     background-color: rgba(25, 103, 65, 1);
     color: rgba(255, 255, 255, 1);
 }
 
-main#list-space article .photo-container .photo .face.back section.info .register.plate .number {
+main#list-space article section.photo-container .photo .face.back section.info .register.plate .number {
     vertical-align: -18px;
     flex-grow: 2;
 }

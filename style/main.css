@@ -202,11 +202,21 @@ main#list-space article section.photo-container .photo .face.back .special-notic
     display: inline-block;
     border: solid 2px rgba(25, 25, 25, 1);
     border-radius: 5px;
-    width: 260px;
+    width: inherit;
+    margin-bottom: 5px;
 }
 
-main#list-space article section.photo-container .photo .face.back button {
-    margin-top: 40px;
+main#list-space article section.photo-container .photo .face.back section .pagination {
+    margin: 10px 0;
+}
+
+main#list-space article section.photo-container .photo .face.back section.info {
+    width: 260px;
+    margin: 0 auto;
+}
+
+main#list-space article section.photo-container .photo .face.back section.info h2 {
+    margin-top: 10px;
 }
 
 main#list-space article section.photo-container .photo .face.back section.info .plate {
@@ -216,7 +226,7 @@ main#list-space article section.photo-container .photo .face.back section.info .
     justify-content: start;
     align-items: center;
     font-family: 'GLNummernschildEng', sans-serif;
-    width: 260px;
+    width: inherit;
     border: solid 2px rgba(25, 25, 25, 1);
     border-radius: 5px;
     margin: 0 auto 5px;
@@ -224,7 +234,8 @@ main#list-space article section.photo-container .photo .face.back section.info .
 }
 
 main#list-space article section.photo-container .photo .face.back section.info .register.plate h1,
-main#list-space article section.photo-container .photo .face.back section.info .species.plate h1 {
+main#list-space article section.photo-container .photo .face.back section.info .species.plate h1,
+main#list-space article section.photo-container .photo .face.back section.info .location-details.plate h1 {
     display: inline-block;
     font-size: 52px;
     margin-top: 0;
@@ -236,8 +247,29 @@ main#list-space article section.photo-container .photo .face.back section.info .
     font-family: 'GLNummernschildEng', sans-serif;
     font-size: 32px;
     line-height: 0.9;
-    margin-top: 0;
-    margin-bottom: 0;
+    margin: 0 auto;
+}
+
+main#list-space article section.photo-container .photo .face.back section.info .location-details.plate .part.simar h1 {
+    line-height: 46px;
+}
+
+main#list-space article section.photo-container .photo .face.back section.info .location-details.plate .part.simar_no h1 {
+    display: inline-block;
+    font-family: 'GLNummernschildEng', sans-serif;
+    font-size: 40px;
+    margin: 0 auto;
+}
+
+main#list-space article section.photo-container .photo .face.back section.info .register.plate .part:nth-child(2) {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main#list-space article section.photo-container .photo .face.back section.info .register.plate .part.number,
+main#list-space article section.photo-container .photo .face.back section.info .location-details.plate .part.simar_no {
+    flex-grow: 3;
 }
 
 main#list-space article section.photo-container .photo .face.back section.info .plate img.icon {
@@ -259,19 +291,21 @@ main#list-space article section.photo-container .photo .face.back section.info .
     padding: 2px;
 }
 
+main#list-space article section.photo-container .photo .face.back section.info .head {
+    color: rgba(255, 255, 255, 1);
+    width: 64px;
+}
+
 main#list-space article section.photo-container .photo .face.back section.info .plate .department {
     background-color: rgba(0, 36, 125, 1);
-    color: rgba(255, 255, 255, 1);
 }
 
 main#list-space article section.photo-container .photo .face.back section.info .plate .owner {
     background-color: rgba(25, 103, 65, 1);
-    color: rgba(255, 255, 255, 1);
 }
 
-main#list-space article section.photo-container .photo .face.back section.info .register.plate .number {
-    vertical-align: -18px;
-    flex-grow: 2;
+main#list-space article section.photo-container .photo .face.back section.info .plate .simar {
+    background-color: rgba(94, 47, 13, 1);
 }
 
 main#list-space article.central-and-western section.location {

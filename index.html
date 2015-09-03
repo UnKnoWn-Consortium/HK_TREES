@@ -19,6 +19,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
     <script src="script/vendor/ui-bootstrap-tpls-0.13.3.min.js"></script>
+    <script src="script/vendor/ng-FitText.js"></script>
 </head>
 <body data-ng-app="main">
     <header>
@@ -50,7 +51,7 @@
     </header>
     <main id="list-space" data-ng-controller="cardSpaceCtrl as parentCtrl">
 
-        <article class="central-and-western" data-ng-repeat="tree in parentCtrl.trees" data-ng-controller="cardCtrl as ctrl">
+        <article data-ng-class="tree.district | distClassFilter" data-ng-repeat="tree in parentCtrl.trees" data-ng-controller="cardCtrl as ctrl">
             <section class="photo-container" data-ng-click="ctrl.toggleBackFace()" data-ng-class="{'flip': ctrl.backFace}">
                 <div class="photo">
                     <div class="front face">
@@ -58,19 +59,20 @@
                     </div>
                     <div class="back face">
                         <section class="info">
+                            <h2>Information</h2>
                             <div class="species plate">
-                                <div class="part owner">
+                                <div class="part head owner">
                                     <h1>GOV</h1>
                                     <div class="icon">
                                         <img data-ng-if="tree.stone_wall_tree" alt="Stone Wall Tree" src="img/stone-wall-tree.svg" class="icon">
                                     </div>
                                 </div>
                                 <div class="part species">
-                                    <h1 data-ng-bind="tree.species"></h1>
+                                    <h1 data-ng-bind="tree.species" data-fittext  data-fittext data-fittext-max="56" data-fittext-min="30"></h1>
                                 </div>
                             </div>
                             <div class="register plate">
-                                <div class="part department">
+                                <div class="part head department">
                                     <h1>HYD</h1>
                                     <div>
                                         <img alt="Highways Department" src="img/govt_dept/hyd.png" class="icon">
@@ -80,13 +82,33 @@
                                     <h1 data-ng-bind="tree.register_no"></h1>
                                 </div>
                             </div>
+                            <div class="location-details plate">
+                                <div class="part head simar" data-ng-if="tree.location_details.simar">
+                                    <h1>SIM<br>AR</h1>
+                                </div>
+                                <div class="part simar_no" data-ng-if="tree.location_details.simar" data-fittext data-fittext-max="56" data-fittext-min="30">
+                                    <h1 data-ng-bind="tree.location_details.simar_no"></h1>
+                                </div>
+                                <div class="part coord" data-ng-if="!tree.location_details.simar">
+                                    <div class="cor-x">
+
+                                    </div>
+                                    <div class="cor-y">
+
+                                    </div>
+                                </div>
+                                <div class="part" data-ng-if="!tree.location_details.simar">
+
+                                </div>
+                            </div>
                             <div class="special-notice" data-ng-if="tree.removed">
                                 <h3>Removed on </h3>
                                 <h3>{{tree.removed_date | date:"d'th' MMMM yyyy"}}</h3>
                                 <h4>due to</h4>
                                 <h3 data-ng-repeat="reason in tree.removed_reasons" data-ng-bind="reason"></h3>
                             </div>
-                            <button class="btn btn-primary btn-block">Read Previous Records</button>
+                            <!--<button class="btn btn-primary btn-block">Read Previous Records</button>-->
+                            <pagination data-direction-links="false" data-total-items="18" data-items-per-pages="3" data-ng-model="ctrl.currentPage"></pagination>
                         </section>
                     </div>
                 </div>
@@ -101,11 +123,15 @@
 
     </main>
     <script>
-        var app = angular.module('main', ['ui.bootstrap']);
+        var app = angular.module('main', ['ui.bootstrap', 'ngFitText']);
         app.controller('cardSpaceCtrl', [function(){
             this.trees = [{ // Reference object database schema (removed=false)
                 district: "cw",
                 location: "Arbuthnot Road",
+                location_details: {
+                    simar: true,
+                    simar_no: "11sw-b/r74"
+                },
                 govt: true,
                 dept: "hyd",
                 removed: false,
@@ -117,6 +143,10 @@
             }, { // Reference object database schema (removed=true)
                 district: "cw",
                 location: "Arbuthnot Road",
+                location_details: {
+                    simar: true,
+                    simar_no: "11sw-b/r74"
+                },
                 govt: true,
                 dept: "hyd",
                 removed: true,
@@ -130,10 +160,14 @@
             }, {
                 district: "cw",
                 location: "Arbuthnot Road",
+                location_details: {
+                    simar: true,
+                    simar_no: "11sw-b/r74"
+                },
                 govt: true,
                 dept: "hyd",
                 removed: false,
-                stone_wall_tree: true,
+                stone_wall_tree: false,
                 species: "Ficus Virens Var. Sublanceolata",
                 register_no: "CW/004",
                 dept_no: "hyd_hk_11sw_b_r74_0_wt4",
@@ -141,6 +175,10 @@
             }, {
                 district: "cw",
                 location: "Borrett Road",
+                location_details: {
+                    simar: true,
+                    simar_no: "11sw-b/r530"
+                },
                 govt: true,
                 dept: "hyd",
                 removed: false,
@@ -151,6 +189,7 @@
                 photos: [{path: "hyd_hk_11sw_b_r530_0_wt1.jpg"}]
             }]
         }]).controller('cardCtrl', [function(){
+            this.currentPage = 1;
             this.backFace = false;
             this.toggleBackFace = function(){
                 this.backFace = !this.backFace;
@@ -205,6 +244,32 @@
             return function(input){
                 return area_table[input];
             };
+        }]).filter('distClassFilter', [function(){
+            var dist_table = {
+                 cw: 'central-and-western',
+                  e: 'eastern',
+                  s: 'southern',
+                 wc: 'wan-chai',
+                 kc: 'kowloon-city',
+                ktn: 'Kwun-tong',
+                ssp: 'sham-shui-po',
+                wts: 'wong-tai-sin',
+                ytm: 'yau-tsim-mong',
+                 is: 'island',
+                kts: 'kwai-tsing',
+                  n: 'north',
+                 sk: 'sai-kung',
+                 st: 'sha-tin',
+                 tp: 'tai-po',
+                 tw: 'tsuen-wan',
+                 tm: 'tuen-mun',
+                 yl: 'yuen-long'
+            };
+            return function(input){
+                var temp = {};
+                temp[dist_table[input]] = true;
+                return temp;
+            }
         }]);
     </script>
 </body>

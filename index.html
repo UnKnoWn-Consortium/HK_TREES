@@ -48,7 +48,7 @@
             </ul>
         </aside>
     </header>
-    <main id="list-space" data-ng-controller="cardSpaceCtrl as parentCtrl">
+    <main id="list-space" data-ng-controller="cardSpaceCtrl as parentCtrl" data-ng-init="parentCtrl.loadTrees()">
 
         <article data-ng-class="tree.district | distClassFilter" data-ng-repeat="tree in parentCtrl.trees" data-ng-controller="cardCtrl as ctrl">
             <section class="photo-container" data-ng-click="ctrl.toggleBackFace()" data-ng-class="{'flip': ctrl.backFace}">
@@ -123,75 +123,109 @@
     </main>
     <script>
         var app = angular.module('main', ['ui.bootstrap']);
-        app.controller('cardSpaceCtrl', [function(){
-            this.trees = [{ // Reference object database schema (removed=false)
-                district: "cw",
-                location: "Arbuthnot Road",
-                location_details: {
-                    simar: true,
-                    simar_no: "11sw-b/r74"
-                },
-                govt: true,
-                dept: "hyd",
-                removed: false,
-                stone_wall_tree: true,
-                species: "Ficus Microcarpa",
-                register_no: "CW/002",
-                dept_no: "hyd_hk_11sw_b_r74_0_wt2",
-                photos: [{path: "hyd_hk_11sw_b_r74_0_wt2.jpg"}]
-            }, { // Reference object database schema (removed=true)
-                district: "cw",
-                location: "Arbuthnot Road",
-                location_details: {
-                    simar: true,
-                    simar_no: "11sw-b/r74"
-                },
-                govt: true,
-                dept: "hyd",
-                removed: true,
-                removed_date: "2015-06-05T12:00:00.000Z",
-                removed_reasons: ["Trunk Failure"],
-                stone_wall_tree: true,
-                species: "Ficus Virens Var. Sublanceolata",
-                register_no: "CW/003",
-                dept_no: "hyd_hk_11sw_b_r74_0_wt3",
-                photos: [{path: "hyd_hk_11sw_b_r74_0_wt3.jpg"}]
-            }, {
-                district: "cw",
-                location: "Arbuthnot Road",
-                location_details: {
-                    simar: true,
-                    simar_no: "11sw-b/r74"
-                },
-                govt: true,
-                dept: "hyd",
-                removed: false,
-                stone_wall_tree: false,
-                species: "Ficus Virens Var. Sublanceolata",
-                register_no: "CW/004",
-                dept_no: "hyd_hk_11sw_b_r74_0_wt4",
-                photos: [{path: "hyd_hk_11sw_b_r74_0_wt4.jpg"}]
-            }, {
-                district: "cw",
-                location: "Borrett Road",
-                location_details: {
-                    simar: true,
-                    simar_no: "11sw-b/r530"
-                },
-                govt: true,
-                dept: "hyd",
-                removed: false,
-                stone_wall_tree: false,
-                species: "Ficus Microcarpa",
-                register_no: "CW/007",
-                dept_no: "hyd_hk_11sw_b_r530_0_wt1",
-                photos: [{path: "hyd_hk_11sw_b_r530_0_wt1.jpg"}]
-            }]
+        app.controller('cardSpaceCtrl', ['userSvc', 'dataSvc', function(userSvc, dataSvc){
+            var self = this;
+            this.trees = [];
+            this.loadTrees = function(){
+                dataSvc.loadData(0).then(function(res){
+                    console.log(res);
+                    self.trees = self.trees.concat(res.data.payload);
+                });
+            };
         }]).controller('cardCtrl', [function(){
             this.currentPage = 1;
             this.backFace = false;
             this.toggleBackFace = function(){
                 this.backFace = !this.backFace;
+            };
+        }]);
+
+        app.factory('userSvc', ['$http', function($http){
+            var user = {
+                userID: "",
+                pwHash: ""
+            };
+            return {
+
+            };
+        }]).factory('dataSvc', ['$q', '$http', '$timeout', function($q, $http, $timeout){
+            return {
+                loadData: function(offset){
+                    // mock
+                    data = [{ // Reference object database schema (removed=false)
+                        district: "cw",
+                        location: "Arbuthnot Road",
+                        location_details: {
+                            simar: true,
+                            simar_no: "11sw-b/r74"
+                        },
+                        govt: true,
+                        dept: "hyd",
+                        removed: false,
+                        stone_wall_tree: true,
+                        species: "Ficus Microcarpa",
+                        register_no: "CW/002",
+                        dept_no: "hyd_hk_11sw_b_r74_0_wt2",
+                        photos: [{path: "hyd_hk_11sw_b_r74_0_wt2.jpg"}]
+                    }, { // Reference object database schema (removed=true)
+                        district: "cw",
+                        location: "Arbuthnot Road",
+                        location_details: {
+                            simar: true,
+                            simar_no: "11sw-b/r74"
+                        },
+                        govt: true,
+                        dept: "hyd",
+                        removed: true,
+                        removed_date: "2015-06-05T12:00:00.000Z",
+                        removed_reasons: ["Trunk Failure"],
+                        stone_wall_tree: true,
+                        species: "Ficus Virens Var. Sublanceolata",
+                        register_no: "CW/003",
+                        dept_no: "hyd_hk_11sw_b_r74_0_wt3",
+                        photos: [{path: "hyd_hk_11sw_b_r74_0_wt3.jpg"}]
+                    }, {
+                        district: "cw",
+                        location: "Arbuthnot Road",
+                        location_details: {
+                            simar: true,
+                            simar_no: "11sw-b/r74"
+                        },
+                        govt: true,
+                        dept: "hyd",
+                        removed: false,
+                        stone_wall_tree: false,
+                        species: "Ficus Virens Var. Sublanceolata",
+                        register_no: "CW/004",
+                        dept_no: "hyd_hk_11sw_b_r74_0_wt4",
+                        photos: [{path: "hyd_hk_11sw_b_r74_0_wt4.jpg"}]
+                    }, {
+                        district: "cw",
+                        location: "Borrett Road",
+                        location_details: {
+                            simar: true,
+                            simar_no: "11sw-b/r530"
+                        },
+                        govt: true,
+                        dept: "hyd",
+                        removed: false,
+                        stone_wall_tree: false,
+                        species: "Ficus Microcarpa",
+                        register_no: "CW/007",
+                        dept_no: "hyd_hk_11sw_b_r530_0_wt1",
+                        photos: [{path: "hyd_hk_11sw_b_r530_0_wt1.jpg"}]
+                    }];
+                    return $q(function(resolve, reject){
+                        $timeout(1000).then(function(){
+                            resolve({data: {payload: data.slice(offset)}});
+                        });
+                    });
+                    // ----
+
+                    /* API Service
+                    return $http.get('api/trees', {params: {'offset': offset}});
+                    */
+                }
             };
         }]);
 

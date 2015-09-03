@@ -4,10 +4,10 @@
     font-family: 'GLNummernschildEng';
     src: url('fonts/GLNummernschildEng.eot');
     src: url('fonts/GLNummernschildEng.eot') format('embedded-opentype'),
-         url('fonts/GLNummernschildEng.woff2') format('woff2'),
-         url('fonts/GLNummernschildEng.woff') format('woff'),
-         url('fonts/GLNummernschildEng.ttf') format('truetype'),
-         url('fonts/GLNummernschildEng.svg#GLNummernschildEng') format('svg');
+    url('fonts/GLNummernschildEng.woff2') format('woff2'),
+    url('fonts/GLNummernschildEng.woff') format('woff'),
+    url('fonts/GLNummernschildEng.ttf') format('truetype'),
+    url('fonts/GLNummernschildEng.svg#GLNummernschildEng') format('svg');
 }
 
 body {
@@ -165,6 +165,7 @@ main#list-space article section.photo-container .photo .face img {
     margin-right: auto;
     width: 300px;
     height: 450px;
+    -o-object-fit: cover;
     object-fit: cover;
     padding: 4px;
     background-color: #fff;
@@ -220,10 +221,25 @@ main#list-space article section.photo-container .photo .face.back section.info h
 }
 
 main#list-space article section.photo-container .photo .face.back section.info .plate {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
     flex-direction: row;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
     flex-wrap: nowrap;
+    -webkit-box-pack: start;
+    -webkit-justify-content: start;
+    -ms-flex-pack: start;
     justify-content: start;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
     align-items: center;
     font-family: 'GLNummernschildEng', sans-serif;
     width: inherit;
@@ -262,13 +278,25 @@ main#list-space article section.photo-container .photo .face.back section.info .
 }
 
 main#list-space article section.photo-container .photo .face.back section.info .register.plate .part:nth-child(2) {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
     display: inline-flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
 main#list-space article section.photo-container .photo .face.back section.info .register.plate .part.number,
 main#list-space article section.photo-container .photo .face.back section.info .location-details.plate .part.simar_no {
+    -webkit-box-flex: 3;
+    -webkit-flex-grow: 3;
+    -ms-flex-positive: 3;
     flex-grow: 3;
 }
 

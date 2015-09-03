@@ -19,7 +19,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
     <script src="script/vendor/ui-bootstrap-tpls-0.13.3.min.js"></script>
-    <script src="script/vendor/ng-FitText.js"></script>
 </head>
 <body data-ng-app="main">
     <header>
@@ -68,7 +67,7 @@
                                     </div>
                                 </div>
                                 <div class="part species">
-                                    <h1 data-ng-bind="tree.species" data-fittext  data-fittext data-fittext-max="56" data-fittext-min="30"></h1>
+                                    <h1 data-ng-bind="tree.species"></h1>
                                 </div>
                             </div>
                             <div class="register plate">
@@ -86,7 +85,7 @@
                                 <div class="part head simar" data-ng-if="tree.location_details.simar">
                                     <h1>SIM<br>AR</h1>
                                 </div>
-                                <div class="part simar_no" data-ng-if="tree.location_details.simar" data-fittext data-fittext-max="56" data-fittext-min="30">
+                                <div class="part simar_no" data-ng-if="tree.location_details.simar">
                                     <h1 data-ng-bind="tree.location_details.simar_no"></h1>
                                 </div>
                                 <div class="part coord" data-ng-if="!tree.location_details.simar">
@@ -123,7 +122,7 @@
 
     </main>
     <script>
-        var app = angular.module('main', ['ui.bootstrap', 'ngFitText']);
+        var app = angular.module('main', ['ui.bootstrap']);
         app.controller('cardSpaceCtrl', [function(){
             this.trees = [{ // Reference object database schema (removed=false)
                 district: "cw",

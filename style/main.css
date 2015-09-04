@@ -143,10 +143,6 @@ main#list-space article section.photo-container .photo .face {
     height: 100%;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 main#list-space article section.photo-container .photo .face.back {
@@ -163,15 +159,8 @@ main#list-space article section.photo-container .photo .face img {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 300px;
-    height: 450px;
-    -o-object-fit: cover;
-    object-fit: cover;
-    padding: 4px;
     background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    cursor: pointer;
+    padding: 4px;
 }
 
 main#list-space article section.photo-container.flip .photo {
@@ -179,7 +168,17 @@ main#list-space article section.photo-container.flip .photo {
     transform: rotateY(180deg);
 }
 
-main#list-space article section.photo-container.flip .photo .front.face img {
+main#list-space article section.photo-container .photo .face.front img {
+    width: 300px;
+    height: 450px;
+    -o-object-fit: cover;
+    object-fit: cover;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+main#list-space article section.photo-container.flip .photo .face.front img {
     -webkit-animation-name: blur-and-white-out;
     animation-name: blur-and-white-out;
     -webkit-animation-duration: 2s;
@@ -188,11 +187,26 @@ main#list-space article section.photo-container.flip .photo .front.face img {
     animation-fill-mode: both;
 }
 
+main#list-space article section.photo-container .photo .face.front {
+    z-index: 2;
+}
+
+main#list-space article section.photo-container.flip .photo .face.front {
+    z-index: 1;
+}
+
 main#list-space article section.photo-container .photo .face.back {
+    overflow-x: hidden;
     overflow-y: auto;
     text-align: center;
     font-family: 'Graduate', cursive;
     color: rgba(0, 0, 0, 1);
+    z-index: 1;
+}
+
+main#list-space article section.photo-container.flip .photo .face.back {
+    position: relative;
+    z-index: 2;
 }
 
 main#list-space article section.photo-container .photo .face.back h4 {
@@ -207,13 +221,31 @@ main#list-space article section.photo-container .photo .face.back .special-notic
     margin-bottom: 5px;
 }
 
+main#list-space article section.photo-container .photo .face.back section .paging {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
 main#list-space article section.photo-container .photo .face.back section .pagination {
-    margin: 10px 0;
+    margin: 10px auto;
 }
 
 main#list-space article section.photo-container .photo .face.back section.info {
     width: 260px;
     margin: 0 auto;
+}
+
+main#list-space article section.photo-container .photo .face.back section.info img#back {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 45px;
+    width: auto;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
 }
 
 main#list-space article section.photo-container .photo .face.back section.info h2 {

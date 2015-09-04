@@ -11,13 +11,13 @@
     <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="img/favicon/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
-    <link rel="icon" type="image/x-icon" sizes="16x16" href="img/favicon/favicon.ico">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'> -->
+    <link rel="icon" type="image/x-icon" sizes="16x16" href="img/favicon/favicon.ico"> -->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700|Poiret+One|Graduate' rel="stylesheet" type="text/css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"  type="text/css">
-    <link href="style/main.css" rel="stylesheet">
+    <link href="style/main.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-sanitize.js"></script>
     <script src="script/vendor/ui-bootstrap-tpls-0.13.3.min.js"></script>
 </head>
 <body data-ng-app="main">
@@ -30,6 +30,7 @@
         <aside class="btn-group">
             <button type="button" class="btn btn-default active"><img class="btn-icon" alt="list" src="img/list.svg">List</button>
             <button type="button" class="btn btn-default"><img class="btn-icon" alt="map" src="img/map.svg">Map</button>
+            <button type="button" class="btn btn-default"><img class="btn-icon" alt="stat" src="img/stat.svg">Stat</button>
         </aside>
         <aside class="btn-group" id="user-svc" dropdown keyboard-nav>
             <button id="user" type="button" class="btn btn-info">
@@ -51,27 +52,38 @@
     <main id="list-space" data-ng-controller="cardSpaceCtrl as parentCtrl" data-ng-init="parentCtrl.loadTrees()">
 
         <article data-ng-class="tree.district | distClassFilter" data-ng-repeat="tree in parentCtrl.trees" data-ng-controller="cardCtrl as ctrl">
-            <section class="photo-container" data-ng-click="ctrl.toggleBackFace()" data-ng-class="{'flip': ctrl.backFace}">
+            <section class="photo-container" data-ng-class="{'flip': ctrl.backFace}">
                 <div class="photo">
-                    <div class="front face">
+                    <div class="front face" data-ng-click="ctrl.toggleBackFace()">
                         <img data-ng-repeat="photo in tree.photos" alt="tree photo {{$index}}" data-ng-src="data/tree_photos/{{photo.path}}" data-ng-class="{removed: tree.removed}">
                     </div>
                     <div class="back face">
                         <section class="info">
-                            <h2>Information</h2>
-                            <div class="species plate">
+                            <img src="img/back.svg" alt="Back" id="back" data-ng-click="ctrl.toggleBackFace()">
+                            <h2 data-ng-show="ctrl.currentPage == 1">Notice</h2>
+                            <div class="special-notice" data-ng-if="tree.removed" data-ng-show="ctrl.currentPage == 1">
+                                <h3>Removed on </h3>
+                                <h3>{{tree.removed_date | date:"d'th' MMMM yyyy"}}</h3>
+                                <h4>due to</h4>
+                                <h3 data-ng-repeat="reason in tree.removed_reasons" data-ng-bind="reason"></h3>
+                            </div>
+
+                            <h2 data-ng-show="ctrl.currentPage == 2">Information</h2>
+                            <div class="species plate" data-ng-show="ctrl.currentPage == 2">
                                 <div class="part head owner">
-                                    <h1>GOV</h1>
+                                    <h1 data-tooltip-placement="top" data-tooltip="Government Owned">GOV</h1>
                                     <div class="icon">
-                                        <img data-ng-if="tree.stone_wall_tree" alt="Stone Wall Tree" src="img/stone-wall-tree.svg" class="icon">
+                                        <img data-ng-if="tree.stone_wall_tree" alt="Stone Wall Tree" src="img/stone-wall-tree.svg" class="icon"  data-tooltip-placement="bottom" data-tooltip="Stone Wall Tree">
                                     </div>
                                 </div>
                                 <div class="part species">
                                     <h1 data-ng-bind="tree.species"></h1>
                                 </div>
                             </div>
-                            <div class="register plate">
-                                <div class="part head department">
+
+                            <h2 data-ng-show="ctrl.currentPage == 3">Location</h2>
+                            <div class="register plate" data-ng-show="ctrl.currentPage == 3">
+                                <div class="part head department" data-tooltip-placement="bottom" data-tooltip="Highways Department">
                                     <h1>HYD</h1>
                                     <div>
                                         <img alt="Highways Department" src="img/govt_dept/hyd.png" class="icon">
@@ -81,8 +93,8 @@
                                     <h1 data-ng-bind="tree.register_no"></h1>
                                 </div>
                             </div>
-                            <div class="location-details plate">
-                                <div class="part head simar" data-ng-if="tree.location_details.simar">
+                            <div class="location-details plate" data-ng-show="ctrl.currentPage == 3">
+                                <div class="part head simar" data-ng-if="tree.location_details.simar" data-tooltip-placement="right" data-tooltip="Systematic Identification of Maintenance Responsibility of Slopes">
                                     <h1>SIM<br>AR</h1>
                                 </div>
                                 <div class="part simar_no" data-ng-if="tree.location_details.simar">
@@ -100,14 +112,12 @@
 
                                 </div>
                             </div>
-                            <div class="special-notice" data-ng-if="tree.removed">
-                                <h3>Removed on </h3>
-                                <h3>{{tree.removed_date | date:"d'th' MMMM yyyy"}}</h3>
-                                <h4>due to</h4>
-                                <h3 data-ng-repeat="reason in tree.removed_reasons" data-ng-bind="reason"></h3>
+                            <div class="paging">
+                                <pagination data-direction-links="false" data-total-items="3" data-items-per-page="1" data-ng-model="ctrl.currentPage"></pagination>
                             </div>
+
                             <!--<button class="btn btn-primary btn-block">Read Previous Records</button>-->
-                            <pagination data-direction-links="false" data-total-items="18" data-items-per-pages="3" data-ng-model="ctrl.currentPage"></pagination>
+
                         </section>
                     </div>
                 </div>
@@ -123,16 +133,16 @@
     </main>
     <script>
         var app = angular.module('main', ['ui.bootstrap']);
-        app.controller('cardSpaceCtrl', ['userSvc', 'dataSvc', function(userSvc, dataSvc){
+        app.controller('cardSpaceCtrl', ['FBUserSvc', 'dataSvc', function(FBUserSvc, dataSvc){
             var self = this;
             this.trees = [];
             this.loadTrees = function(){
-                dataSvc.loadData(0).then(function(res){
+                dataSvc.getData(0).then(function(res){
                     console.log(res);
                     self.trees = self.trees.concat(res.data.payload);
                 });
             };
-        }]).controller('cardCtrl', [function(){
+        }]).controller('cardCtrl', ['govtSMRISDataSvc', function(govtSMRISDataSvc){
             this.currentPage = 1;
             this.backFace = false;
             this.toggleBackFace = function(){
@@ -140,7 +150,7 @@
             };
         }]);
 
-        app.factory('userSvc', ['$http', function($http){
+        app.factory('FBUserSvc', ['$http', function($http){
             var user = {
                 userID: "",
                 pwHash: ""
@@ -148,11 +158,11 @@
             return {
 
             };
-        }]).factory('dataSvc', ['$q', '$http', '$timeout', function($q, $http, $timeout){
+        }]).factory('dataSvc', ['$http', '$q', '$timeout', function($http, $q, $timeout){
             return {
-                loadData: function(offset){
+                getData: function(offset){
                     // mock
-                    data = [{ // Reference object database schema (removed=false)
+                    var data = [{ // Reference object database schema (removed=false)
                         district: "cw",
                         location: "Arbuthnot Road",
                         location_details: {
@@ -209,11 +219,26 @@
                         govt: true,
                         dept: "hyd",
                         removed: false,
-                        stone_wall_tree: false,
+                        stone_wall_tree: true,
                         species: "Ficus Microcarpa",
                         register_no: "CW/007",
                         dept_no: "hyd_hk_11sw_b_r530_0_wt1",
                         photos: [{path: "hyd_hk_11sw_b_r530_0_wt1.jpg"}]
+                    }, {
+                        district: "cw",
+                        location: "Bowen Road",
+                        location_details: {
+                            simar: true,
+                            simar_no: "11sw-b/fr124"
+                        },
+                        govt: true,
+                        dept: "hyd",
+                        removed: false,
+                        stone_wall_tree: false,
+                        species: "Ficus Virens Var. Sublanceolata",
+                        register_no: "CW/008",
+                        dept_no: "hyd_hk_11sw_b_fr124_0_wt1",
+                        photos: [{path: "hyd_hk_11sw_b_fr124_0_wt1.jpg"}]
                     }];
                     return $q(function(resolve, reject){
                         $timeout(1000).then(function(){
@@ -227,6 +252,15 @@
                     */
                 }
             };
+        }]).factory('govtSMRISDataSvc', ['$http', function($http){
+            return {
+                getSlope: function(sn){
+                    return $http.get('http://www2.slope.landsd.gov.hk/smris/getSlopeBySlopeNo', {params: {'sn': sn}});
+                },
+                getSlopeTechInfo: function(sn){
+                    return $http.get('http://www2.slope.landsd.gov.hk/smris/getSlopeTechInfo', {params: {'sn': sn}});
+                }
+            }
         }]);
 
         app.filter('districtFilter', [function(){

@@ -58,8 +58,8 @@
                         <img data-ng-repeat="photo in tree.photos" alt="tree photo {{$index}}" data-ng-src="data/tree_photos/{{photo.path}}" data-ng-class="{removed: tree.removed}">
                     </div>
                     <div class="back face">
-                        <section class="info">
-                            <img src="img/back.svg" alt="Back" id="back" data-ng-click="ctrl.toggleBackFace()">
+                        <img src="img/back.svg" alt="Back" id="back" data-ng-click="ctrl.toggleBackFace()">
+                        <section id="notice">
                             <h2 data-ng-show="ctrl.currentPage == 1">Notice</h2>
                             <div class="special-notice" data-ng-if="tree.removed" data-ng-show="ctrl.currentPage == 1">
                                 <h3>Removed on </h3>
@@ -67,7 +67,8 @@
                                 <h4>due to</h4>
                                 <h3 data-ng-repeat="reason in tree.removed_reasons" data-ng-bind="reason"></h3>
                             </div>
-
+                        </section>
+                        <section id="information">
                             <h2 data-ng-show="ctrl.currentPage == 2">Information</h2>
                             <div class="species plate" data-ng-show="ctrl.currentPage == 2">
                                 <div class="part head owner">
@@ -80,7 +81,8 @@
                                     <h1 data-ng-bind="tree.species"></h1>
                                 </div>
                             </div>
-
+                        </section>
+                        <section id="location">
                             <h2 data-ng-show="ctrl.currentPage == 3">Location</h2>
                             <div class="register plate" data-ng-show="ctrl.currentPage == 3">
                                 <div class="part head department" data-tooltip-placement="bottom" data-tooltip="Highways Department">
@@ -94,13 +96,15 @@
                                 </div>
                             </div>
                             <div class="location-details plate" data-ng-show="ctrl.currentPage == 3">
-                                <div class="part head simar" data-ng-if="tree.location_details.simar" data-tooltip-placement="right" data-tooltip="Systematic Identification of Maintenance Responsibility of Slopes">
+                                <div class="part head simar" data-ng-if="!!tree.location_details.simar" data-tooltip-placement="right" data-tooltip="Systematic Identification of Maintenance Responsibility of Slopes">
                                     <h1>SIM<br>AR</h1>
                                 </div>
-                                <div class="part simar_no" data-ng-if="tree.location_details.simar">
+                                <div class="part simar_no" data-ng-if="!!tree.location_details.simar">
                                     <h1 data-ng-bind="tree.location_details.simar_no"></h1>
                                 </div>
-                                <div class="part coord" data-ng-if="!tree.location_details.simar">
+                            </div>
+                            <div class="coordinate plate">
+                                <div class="part coord" data-ng-if="!!tree.location_details.coordinate">
                                     <div class="cor-x">
 
                                     </div>
@@ -108,17 +112,16 @@
 
                                     </div>
                                 </div>
-                                <div class="part" data-ng-if="!tree.location_details.simar">
+                                <div class="part" data-ng-if="!!tree.location_details.simar">
 
                                 </div>
                             </div>
-                            <div class="paging">
-                                <pagination data-direction-links="false" data-total-items="3" data-items-per-page="1" data-ng-model="ctrl.currentPage"></pagination>
-                            </div>
-
-                            <!--<button class="btn btn-primary btn-block">Read Previous Records</button>-->
-
                         </section>
+                        <section id="pagination">
+                            <pagination data-direction-links="false" data-total-items="3" data-items-per-page="1" data-ng-model="ctrl.currentPage"></pagination>
+                        </section>
+
+                        <!--<button class="btn btn-primary btn-block">Read Previous Records</button>-->
                     </div>
                 </div>
             </section>
@@ -167,7 +170,11 @@
                         location: "Arbuthnot Road",
                         location_details: {
                             simar: true,
-                            simar_no: "11sw-b/r74"
+                            simar_no: "11sw-b/r74",
+                            coordinate: {
+                                x: 123,
+                                y: 123
+                            }
                         },
                         govt: true,
                         dept: "hyd",
@@ -182,7 +189,11 @@
                         location: "Arbuthnot Road",
                         location_details: {
                             simar: true,
-                            simar_no: "11sw-b/r74"
+                            simar_no: "11sw-b/r74",
+                            coordinate: {
+                                x: 123,
+                                y: 123
+                            }
                         },
                         govt: true,
                         dept: "hyd",
@@ -199,7 +210,11 @@
                         location: "Arbuthnot Road",
                         location_details: {
                             simar: true,
-                            simar_no: "11sw-b/r74"
+                            simar_no: "11sw-b/r74",
+                            coordinate: {
+                                x: 123,
+                                y: 123
+                            }
                         },
                         govt: true,
                         dept: "hyd",
@@ -214,7 +229,11 @@
                         location: "Borrett Road",
                         location_details: {
                             simar: true,
-                            simar_no: "11sw-b/r530"
+                            simar_no: "11sw-b/r530",
+                            coordinate: {
+                                x: 123,
+                                y: 123
+                            }
                         },
                         govt: true,
                         dept: "hyd",
@@ -229,7 +248,11 @@
                         location: "Bowen Road",
                         location_details: {
                             simar: true,
-                            simar_no: "11sw-b/fr124"
+                            simar_no: "11sw-b/fr124",
+                            coordinate: {
+                                x: 123,
+                                y: 123
+                            }
                         },
                         govt: true,
                         dept: "hyd",

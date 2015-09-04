@@ -217,27 +217,26 @@ main#list-space article section.photo-container .photo .face.back .special-notic
     display: inline-block;
     border: solid 2px rgba(25, 25, 25, 1);
     border-radius: 5px;
-    width: inherit;
+    width: 100%;
     margin-bottom: 5px;
 }
 
-main#list-space article section.photo-container .photo .face.back section .paging {
+main#list-space article section.photo-container .photo .face.back section#pagination {
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
 }
 
-main#list-space article section.photo-container .photo .face.back section .pagination {
+main#list-space article section.photo-container .photo .face.back section#pagination pagination {
     margin: 10px auto;
 }
 
-main#list-space article section.photo-container .photo .face.back section.info {
-    width: 260px;
-    margin: 0 auto;
+main#list-space article section.photo-container .photo .face.back {
+    border-radius: 4px;
 }
 
-main#list-space article section.photo-container .photo .face.back section.info img#back {
+main#list-space article section.photo-container .photo .face.back img#back {
     position: absolute;
     top: 0;
     right: 0;
@@ -248,11 +247,11 @@ main#list-space article section.photo-container .photo .face.back section.info i
     cursor: pointer;
 }
 
-main#list-space article section.photo-container .photo .face.back section.info h2 {
+main#list-space article section.photo-container .photo .face.back h2 {
     margin-top: 10px;
 }
 
-main#list-space article section.photo-container .photo .face.back section.info .plate {
+main#list-space article section.photo-container .photo .face.back .plate {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -281,35 +280,35 @@ main#list-space article section.photo-container .photo .face.back section.info .
     padding-left: 10px;
 }
 
-main#list-space article section.photo-container .photo .face.back section.info .register.plate h1,
-main#list-space article section.photo-container .photo .face.back section.info .species.plate h1,
-main#list-space article section.photo-container .photo .face.back section.info .location-details.plate h1 {
+main#list-space article section.photo-container .photo .face.back .register.plate h1,
+main#list-space article section.photo-container .photo .face.back .species.plate h1,
+main#list-space article section.photo-container .photo .face.back .location-details.plate h1 {
     display: inline-block;
-    font-size: 52px;
+    font-size: 54px;
     margin-top: 0;
     margin-bottom: 0;
 }
 
-main#list-space article section.photo-container .photo .face.back section.info .species.plate .part.species h1 {
+main#list-space article section.photo-container .photo .face.back .species.plate .part.species h1 {
     display: inline-block;
     font-family: 'GLNummernschildEng', sans-serif;
-    font-size: 32px;
-    line-height: 0.9;
+    font-size: 34px;
+    line-height: 0.85;
     margin: 0 auto;
 }
 
-main#list-space article section.photo-container .photo .face.back section.info .location-details.plate .part.simar h1 {
+main#list-space article section.photo-container .photo .face.back .location-details.plate .part.simar h1 {
     line-height: 46px;
 }
 
-main#list-space article section.photo-container .photo .face.back section.info .location-details.plate .part.simar_no h1 {
+main#list-space article section.photo-container .photo .face.back .location-details.plate .part.simar_no h1 {
     display: inline-block;
     font-family: 'GLNummernschildEng', sans-serif;
     font-size: 40px;
     margin: 0 auto;
 }
 
-main#list-space article section.photo-container .photo .face.back section.info .register.plate .part:nth-child(2) {
+main#list-space article section.photo-container .photo .face.back .register.plate .part:nth-child(2) {
     display: -webkit-inline-box;
     display: -webkit-inline-flex;
     display: -ms-inline-flexbox;
@@ -324,15 +323,15 @@ main#list-space article section.photo-container .photo .face.back section.info .
     align-items: center;
 }
 
-main#list-space article section.photo-container .photo .face.back section.info .register.plate .part.number,
-main#list-space article section.photo-container .photo .face.back section.info .location-details.plate .part.simar_no {
+main#list-space article section.photo-container .photo .face.back .register.plate .part.number,
+main#list-space article section.photo-container .photo .face.back .location-details.plate .part.simar_no {
     -webkit-box-flex: 3;
     -webkit-flex-grow: 3;
     -ms-flex-positive: 3;
     flex-grow: 3;
 }
 
-main#list-space article section.photo-container .photo .face.back section.info .plate img.icon {
+main#list-space article section.photo-container .photo .face.back .plate img.icon {
     padding: 0;
     height: 35px;
     width: auto;
@@ -340,31 +339,31 @@ main#list-space article section.photo-container .photo .face.back section.info .
     vertical-align: baseline;
 }
 
-main#list-space article section.photo-container .photo .face.back section.info .plate div.icon {
+main#list-space article section.photo-container .photo .face.back .plate div.icon {
     margin: 0 auto;
     height: 36px;
     width: 36px;
 }
 
-main#list-space article section.photo-container .photo .face.back section.info .plate .part {
+main#list-space article section.photo-container .photo .face.back .plate .part {
     display: inline-block;
     padding: 2px;
 }
 
-main#list-space article section.photo-container .photo .face.back section.info .head {
+main#list-space article section.photo-container .photo .face.back .head {
     color: rgba(255, 255, 255, 1);
-    width: 64px;
+    width: 68px;
 }
 
-main#list-space article section.photo-container .photo .face.back section.info .plate .department {
+main#list-space article section.photo-container .photo .face.back .plate .department {
     background-color: rgba(0, 36, 125, 1);
 }
 
-main#list-space article section.photo-container .photo .face.back section.info .plate .owner {
+main#list-space article section.photo-container .photo .face.back .plate .owner {
     background-color: rgba(25, 103, 65, 1);
 }
 
-main#list-space article section.photo-container .photo .face.back section.info .plate .simar {
+main#list-space article section.photo-container .photo .face.back .plate .simar {
     background-color: rgba(94, 47, 13, 1);
 }
 

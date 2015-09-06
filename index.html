@@ -22,10 +22,19 @@
 </head>
 <body data-ng-app="main">
     <header>
-        <main>
+        <main data-ng-controller="headerCtrl as headerCtrl">
             <h1>Hong Kong</h1>
-            <img class="img-circle" alt="100x100" src="img/tree_logo.png">
+            <img class="img-circle" alt="100x100" src="img/tree_logo.png" data-ng-click="headerCtrl.open()">
             <h1>Tree Database</h1>
+            <script type="text/ng-template" id="headerModal.html">
+                <div class="modal-header">
+                    <h1>Hong Kong Tree Database</h1>
+                    <span class="modal-close glyphicon glyphicon-remove" data-ng-click="ctrl.close()"></span>
+                </div>
+                <div class="modal-body">
+
+                </div>
+            </script>
         </main>
         <aside class="btn-group">
             <button type="button" class="btn btn-default active"><img class="btn-icon" alt="list" src="img/list.svg">List</button>
@@ -59,8 +68,8 @@
                     </div>
                     <div class="back face">
                         <img src="img/back.svg" alt="Back" id="back" data-ng-click="ctrl.toggleBackFace()">
-                        <section id="notice">
-                            <h2 data-ng-show="ctrl.currentPage == 1">Notice</h2>
+                        <section id="notice" data-ng-show="ctrl.currentPage == 1">
+                            <h2>Notice</h2>
                             <div class="special-notice" data-ng-if="tree.removed" data-ng-show="ctrl.currentPage == 1">
                                 <h3>Removed on </h3>
                                 <h3>{{tree.removed_date | date:"d'th' MMMM yyyy"}}</h3>
@@ -68,24 +77,10 @@
                                 <h3 data-ng-repeat="reason in tree.removed_reasons" data-ng-bind="reason"></h3>
                             </div>
                         </section>
-                        <section id="information">
-                            <h2 data-ng-show="ctrl.currentPage == 2">Information</h2>
-                            <div class="species plate" data-ng-show="ctrl.currentPage == 2">
-                                <div class="part head owner">
-                                    <h1 data-tooltip-placement="top" data-tooltip="Government Owned">GOV</h1>
-                                    <div class="icon">
-                                        <img data-ng-if="tree.stone_wall_tree" alt="Stone Wall Tree" src="img/stone-wall-tree.svg" class="icon"  data-tooltip-placement="bottom" data-tooltip="Stone Wall Tree">
-                                    </div>
-                                </div>
-                                <div class="part species">
-                                    <h1 data-ng-bind="tree.species"></h1>
-                                </div>
-                            </div>
-                        </section>
-                        <section id="location">
-                            <h2 data-ng-show="ctrl.currentPage == 3">Location</h2>
-                            <div class="register plate" data-ng-show="ctrl.currentPage == 3">
-                                <div class="part head department" data-tooltip-placement="bottom" data-tooltip="Highways Department">
+                        <section id="information" data-ng-show="ctrl.currentPage == 2">
+                            <h2>Information</h2>
+                            <div class="register plate">
+                                <div class="part head" data-tooltip-placement="right" data-tooltip-append-to-body="true" data-tooltip="Highways Department">
                                     <h1>HYD</h1>
                                     <div>
                                         <img alt="Highways Department" src="img/govt_dept/hyd.png" class="icon">
@@ -95,8 +90,22 @@
                                     <h1 data-ng-bind="tree.register_no"></h1>
                                 </div>
                             </div>
-                            <div class="location-details plate" data-ng-show="ctrl.currentPage == 3">
-                                <div class="part head simar" data-ng-if="!!tree.location_details.simar" data-tooltip-placement="right" data-tooltip="Systematic Identification of Maintenance Responsibility of Slopes">
+                            <div class="species plate">
+                                <div class="part head">
+                                    <h1 data-tooltip-placement="top" data-tooltip="Government Owned">GOV</h1>
+                                    <div class="icon">
+                                        <img data-ng-if="tree.stone_wall_tree" alt="Stone Wall Tree" src="img/stone-wall-tree.svg" class="icon"  data-tooltip-placement="bottom" data-tooltip-append-to-body="true" data-tooltip-append-to-body="true" data-tooltip="Stone Wall Tree">
+                                    </div>
+                                </div>
+                                <div class="part species">
+                                    <h1 data-ng-bind="tree.species"></h1>
+                                </div>
+                            </div>
+                        </section>
+                        <section id="location" data-ng-show="ctrl.currentPage == 3">
+                            <h2>Location</h2>
+                            <div class="location-details plate">
+                                <div class="part head" data-ng-if="!!tree.location_details.simar" data-tooltip-placement="right" data-tooltip-append-to-body="true" data-tooltip="Systematic Identification of Maintenance Responsibility of Slopes">
                                     <h1>SIM<br>AR</h1>
                                 </div>
                                 <div class="part simar_no" data-ng-if="!!tree.location_details.simar">
@@ -104,16 +113,21 @@
                                 </div>
                             </div>
                             <div class="coordinate plate">
-                                <div class="part coord" data-ng-if="!!tree.location_details.coordinate">
-                                    <div class="cor-x">
-
-                                    </div>
-                                    <div class="cor-y">
-
+                                <div class="part head" data-ng-if="!!tree.location_details.coordinate">
+                                    <h1>GPS</h1>
+                                    <div class="icon">
+                                        <img src="img/google_maps_icon.png" alt="Open in Google Maps View" class="icon" data-tooltip-placement="bottom" data-tooltip-append-to-body="true" data-tooltip-append-to-body="true" data-tooltip="Open in map view">
                                     </div>
                                 </div>
                                 <div class="part" data-ng-if="!!tree.location_details.simar">
-
+                                    <div class="lat">
+                                        <h2>Latitude</h2>
+                                        <h1 data-ng-bind="tree.location_details.coordinate.lat | number:5"></h1>
+                                    </div>
+                                    <div class="lon">
+                                        <h2>Longitude</h2>
+                                        <h1 data-ng-bind="tree.location_details.coordinate.lon | number:4"></h1>
+                                    </div>
                                 </div>
                             </div>
                         </section>
@@ -136,7 +150,20 @@
     </main>
     <script>
         var app = angular.module('main', ['ui.bootstrap']);
-        app.controller('cardSpaceCtrl', ['FBUserSvc', 'dataSvc', function(FBUserSvc, dataSvc){
+        app.controller('headerCtrl', ['$modal', function($modal){
+            this.open = function(){
+                modalInstance = $modal.open({
+                    animation: true,
+                    templateUrl: 'headerModal.html',
+                    controller: 'headerModalCtrl as ctrl'
+                });
+            };
+        }]).controller('headerModalCtrl', ['$modalInstance', function($modalInstance){
+            this.close = function(){
+                console.log("testing");
+                $modalInstance.dismiss('read');
+            };
+        }]).controller('cardSpaceCtrl', ['FBUserSvc', 'dataSvc', function(FBUserSvc, dataSvc){
             var self = this;
             this.trees = [];
             this.loadTrees = function(){
@@ -172,8 +199,8 @@
                             simar: true,
                             simar_no: "11sw-b/r74",
                             coordinate: {
-                                x: 123,
-                                y: 123
+                                lat: 22.279790330,
+                                lon: 114.154877119
                             }
                         },
                         govt: true,
@@ -191,8 +218,8 @@
                             simar: true,
                             simar_no: "11sw-b/r74",
                             coordinate: {
-                                x: 123,
-                                y: 123
+                                lat: 22.279790330,
+                                lon: 114.154877119
                             }
                         },
                         govt: true,
@@ -212,8 +239,8 @@
                             simar: true,
                             simar_no: "11sw-b/r74",
                             coordinate: {
-                                x: 123,
-                                y: 123
+                                lat: 22.279790330,
+                                lon: 114.154877119
                             }
                         },
                         govt: true,
@@ -231,8 +258,8 @@
                             simar: true,
                             simar_no: "11sw-b/r530",
                             coordinate: {
-                                x: 123,
-                                y: 123
+                                lat: 22.274896745,
+                                lon: 114.164590480
                             }
                         },
                         govt: true,
@@ -250,8 +277,8 @@
                             simar: true,
                             simar_no: "11sw-b/fr124",
                             coordinate: {
-                                x: 123,
-                                y: 123
+                                lat: 22.274598157,
+                                lon: 114.158467993
                             }
                         },
                         govt: true,

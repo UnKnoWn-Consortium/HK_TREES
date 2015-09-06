@@ -108,7 +108,7 @@ main#list-space {
     overflow-y: auto;
 }
 
-main#list-space article {
+article {
     position: relative;
     background: rgba(255, 255, 255, 0.8);
     border: solid 1px rgba(215, 215, 215, 1);
@@ -120,7 +120,7 @@ main#list-space article {
     margin: 5px;
 }
 
-main#list-space article section.photo-container {
+article section.photo-container {
     position: relative;
     margin: 10px auto;
     width: 300px;
@@ -128,7 +128,7 @@ main#list-space article section.photo-container {
     z-index: 1;
 }
 
-main#list-space article section.photo-container .photo {
+article section.photo-container .photo {
     height: 100%;
     width: 100%;
     -webkit-transform-style: preserve-3d;
@@ -137,7 +137,7 @@ main#list-space article section.photo-container .photo {
     transition-duration: 2s;
 }
 
-main#list-space article section.photo-container .photo .face {
+article section.photo-container .photo .face {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -145,7 +145,7 @@ main#list-space article section.photo-container .photo .face {
     backface-visibility: hidden;
 }
 
-main#list-space article section.photo-container .photo .face.back {
+article section.photo-container .photo .face.back {
     display: block;
     -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
@@ -155,7 +155,12 @@ main#list-space article section.photo-container .photo .face.back {
     background-color: rgba(255, 255, 255, 1);
 }
 
-main#list-space article section.photo-container .photo .face img {
+article section.photo-container.flip .photo {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+
+article section.photo-container .photo .face img {
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -163,12 +168,7 @@ main#list-space article section.photo-container .photo .face img {
     padding: 4px;
 }
 
-main#list-space article section.photo-container.flip .photo {
-    -webkit-transform: rotateY(180deg);
-    transform: rotateY(180deg);
-}
-
-main#list-space article section.photo-container .photo .face.front img {
+article section.photo-container .photo .face.front img {
     width: 300px;
     height: 450px;
     -o-object-fit: cover;
@@ -178,7 +178,7 @@ main#list-space article section.photo-container .photo .face.front img {
     cursor: pointer;
 }
 
-main#list-space article section.photo-container.flip .photo .face.front img {
+article section.photo-container.flip .photo .face.front img {
     -webkit-animation-name: blur-and-white-out;
     animation-name: blur-and-white-out;
     -webkit-animation-duration: 2s;
@@ -187,15 +187,15 @@ main#list-space article section.photo-container.flip .photo .face.front img {
     animation-fill-mode: both;
 }
 
-main#list-space article section.photo-container .photo .face.front {
+article section.photo-container .photo .face.front {
     z-index: 2;
 }
 
-main#list-space article section.photo-container.flip .photo .face.front {
+article section.photo-container.flip .photo .face.front {
     z-index: 1;
 }
 
-main#list-space article section.photo-container .photo .face.back {
+article section.photo-container .photo .face.back {
     overflow-x: hidden;
     overflow-y: auto;
     text-align: center;
@@ -204,16 +204,16 @@ main#list-space article section.photo-container .photo .face.back {
     z-index: 1;
 }
 
-main#list-space article section.photo-container.flip .photo .face.back {
+article section.photo-container.flip .photo .face.back {
     position: relative;
     z-index: 2;
 }
 
-main#list-space article section.photo-container .photo .face.back h4 {
+article section.photo-container .photo .face.back h4 {
     margin-top: 20px;
 }
 
-main#list-space article section.photo-container .photo .face.back .special-notice {
+article section.photo-container .photo .face.back .special-notice {
     display: inline-block;
     border: solid 2px rgba(25, 25, 25, 1);
     border-radius: 5px;
@@ -221,22 +221,22 @@ main#list-space article section.photo-container .photo .face.back .special-notic
     margin-bottom: 5px;
 }
 
-main#list-space article section.photo-container .photo .face.back section#pagination {
+article section.photo-container .photo .face.back section#pagination {
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
 }
 
-main#list-space article section.photo-container .photo .face.back section#pagination pagination {
+article section.photo-container .photo .face.back section#pagination pagination {
     margin: 10px auto;
 }
 
-main#list-space article section.photo-container .photo .face.back {
+article section.photo-container .photo .face.back {
     border-radius: 4px;
 }
 
-main#list-space article section.photo-container .photo .face.back img#back {
+article section.photo-container .photo .face.back img#back {
     position: absolute;
     top: 0;
     right: 0;
@@ -247,11 +247,11 @@ main#list-space article section.photo-container .photo .face.back img#back {
     cursor: pointer;
 }
 
-main#list-space article section.photo-container .photo .face.back h2 {
+article section.photo-container .photo .face.back h2 {
     margin-top: 10px;
 }
 
-main#list-space article section.photo-container .photo .face.back .plate {
+article section.photo-container .photo .face.back .plate {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -265,13 +265,13 @@ main#list-space article section.photo-container .photo .face.back .plate {
     -ms-flex-wrap: nowrap;
     flex-wrap: nowrap;
     -webkit-box-pack: start;
-    -webkit-justify-content: start;
+    -webkit-justify-content: flex-start;
     -ms-flex-pack: start;
     justify-content: start;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
+    -webkit-box-align: stretch;
+    -webkit-align-items: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
     font-family: 'GLNummernschildEng', sans-serif;
     width: inherit;
     border: solid 2px rgba(25, 25, 25, 1);
@@ -280,35 +280,7 @@ main#list-space article section.photo-container .photo .face.back .plate {
     padding-left: 10px;
 }
 
-main#list-space article section.photo-container .photo .face.back .register.plate h1,
-main#list-space article section.photo-container .photo .face.back .species.plate h1,
-main#list-space article section.photo-container .photo .face.back .location-details.plate h1 {
-    display: inline-block;
-    font-size: 54px;
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-main#list-space article section.photo-container .photo .face.back .species.plate .part.species h1 {
-    display: inline-block;
-    font-family: 'GLNummernschildEng', sans-serif;
-    font-size: 34px;
-    line-height: 0.85;
-    margin: 0 auto;
-}
-
-main#list-space article section.photo-container .photo .face.back .location-details.plate .part.simar h1 {
-    line-height: 46px;
-}
-
-main#list-space article section.photo-container .photo .face.back .location-details.plate .part.simar_no h1 {
-    display: inline-block;
-    font-family: 'GLNummernschildEng', sans-serif;
-    font-size: 40px;
-    margin: 0 auto;
-}
-
-main#list-space article section.photo-container .photo .face.back .register.plate .part:nth-child(2) {
+article section.photo-container .photo .face.back .plate .part {
     display: -webkit-inline-box;
     display: -webkit-inline-flex;
     display: -ms-inline-flexbox;
@@ -321,17 +293,15 @@ main#list-space article section.photo-container .photo .face.back .register.plat
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    padding: 2px;
 }
 
-main#list-space article section.photo-container .photo .face.back .register.plate .part.number,
-main#list-space article section.photo-container .photo .face.back .location-details.plate .part.simar_no {
-    -webkit-box-flex: 3;
-    -webkit-flex-grow: 3;
-    -ms-flex-positive: 3;
-    flex-grow: 3;
-}
-
-main#list-space article section.photo-container .photo .face.back .plate img.icon {
+article section.photo-container .photo .face.back .plate img.icon {
     padding: 0;
     height: 35px;
     width: auto;
@@ -339,35 +309,97 @@ main#list-space article section.photo-container .photo .face.back .plate img.ico
     vertical-align: baseline;
 }
 
-main#list-space article section.photo-container .photo .face.back .plate div.icon {
+article section.photo-container .photo .face.back .plate div.icon {
     margin: 0 auto;
     height: 36px;
     width: 36px;
 }
 
-main#list-space article section.photo-container .photo .face.back .plate .part {
+article section.photo-container .photo .face.back .register.plate h1,
+article section.photo-container .photo .face.back .species.plate h1,
+article section.photo-container .photo .face.back .location-details.plate h1,
+article section.photo-container .photo .face.back .coordinate.plate h1 {
     display: inline-block;
-    padding: 2px;
+    font-size: 54px;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
-main#list-space article section.photo-container .photo .face.back .head {
-    color: rgba(255, 255, 255, 1);
-    width: 68px;
+article section.photo-container .photo .face.back .species.plate .part.species h1 {
+    display: inline-block;
+    font-family: 'GLNummernschildEng', sans-serif;
+    font-size: 34px;
+    line-height: 0.85;
+    margin: 0 auto;
 }
 
-main#list-space article section.photo-container .photo .face.back .plate .department {
+article section.photo-container .photo .face.back .location-details.plate .head h1 {
+    line-height: 46px;
+}
+
+article section.photo-container .photo .face.back .location-details.plate .simar_no h1 {
+    display: inline-block;
+    font-family: 'GLNummernschildEng', sans-serif;
+    font-size: 40px;
+    margin: 0 auto;
+}
+
+article section.photo-container .photo .face.back .plate .part:nth-child(2) {
+    -webkit-box-flex: 2;
+    -webkit-flex-grow: 2;
+    -ms-flex-positive: 2;
+    flex-grow: 2;
+}
+
+article section.photo-container .photo .face.back .register.plate .head {
     background-color: rgba(0, 36, 125, 1);
 }
 
-main#list-space article section.photo-container .photo .face.back .plate .owner {
-    background-color: rgba(25, 103, 65, 1);
+article section.photo-container .photo .face.back .species.plate .head {
+    background-color: rgba(82, 82, 20, 1);
 }
 
-main#list-space article section.photo-container .photo .face.back .plate .simar {
+article section.photo-container .photo .face.back .location-details.plate .head {
     background-color: rgba(94, 47, 13, 1);
 }
 
-main#list-space article.central-and-western section.location {
+article section.photo-container .photo .face.back .coordinate.plate .head {
+    background-color: rgba(20, 82, 82, 1);
+}
+
+article section.photo-container .photo .face.back .coordinate.plate .lat h1,
+article section.photo-container .photo .face.back .coordinate.plate .lon h1 {
+    line-height: 0.9;
+}
+
+article section.photo-container .photo .face.back .coordinate.plate .lat h2,
+article section.photo-container .photo .face.back .coordinate.plate .lon h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+article section.photo-container .photo .face.back .coordinate.plate img.icon {
+    padding: 0;
+    height: 38px;
+    width: auto;
+    background: transparent;
+    border-radius: 1px;
+    vertical-align: baseline;
+}
+
+article section.photo-container .photo .face.back .coordinate.plate div.icon {
+    margin: 0 auto;
+    height: auto;
+    width: auto;
+    cursor: pointer;
+}
+
+article section.photo-container .photo .face.back .head {
+    color: rgba(255, 255, 255, 1);
+    min-width: 68px;
+}
+
+article.central-and-western section.location {
     position: absolute;
     color: rgb(219,233,236);
     font-family: 'Open Sans Condensed', serif;
@@ -376,13 +408,22 @@ main#list-space article.central-and-western section.location {
     text-align: right;
 }
 
-main#list-space article.central-and-western section.location h3:last-child {
+article.central-and-western section.location h3:last-child {
     font-weight: bold;
 }
 
-main#list-space article section.location h3 {
+article section.location h3 {
     margin-top: 0;
     margin-bottom: 5px;
+}
+
+.modal-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 24px;
+    padding: 5px;
+    cursor: pointer;
 }
 
 .central-and-western {

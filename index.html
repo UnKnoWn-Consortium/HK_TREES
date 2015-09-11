@@ -15,14 +15,19 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700|Poiret+One|Graduate' rel="stylesheet" type="text/css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"  type="text/css">
     <link href="style/main.css" rel="stylesheet" type="text/css">
+    <script src="script/vendor/lodash.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-sanitize.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-sanitize.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-animate.min.js"></script>
+    <script src="script/vendor/nemLogging.js"></script>
+    <script src="script/vendor/angular-google-maps.min.js"></script>
     <script src="script/vendor/ui-bootstrap-tpls-0.13.3.min.js"></script>
 </head>
 <body data-ng-app="main">
-    <header>
-        <main data-ng-controller="headerCtrl as headerCtrl">
+    <header data-ng-controller="headerCtrl as headerCtrl">
+        <main>
             <h1>Hong Kong</h1>
             <img class="img-circle" alt="100x100" src="img/tree_logo.png" data-ng-click="headerCtrl.open()">
             <h1>Tree Database</h1>
@@ -37,9 +42,9 @@
             </script>
         </main>
         <aside class="btn-group">
-            <button type="button" class="btn btn-default active"><img class="btn-icon" alt="list" src="img/list.svg">List</button>
-            <button type="button" class="btn btn-default"><img class="btn-icon" alt="map" src="img/map.svg">Map</button>
-            <button type="button" class="btn btn-default"><img class="btn-icon" alt="stat" src="img/stat.svg">Stat</button>
+            <a class="btn btn-default" data-ng-class="{active: headerCtrl.route.current.$$route.activeTab == 'list'}" href="#/"><img class="btn-icon" alt="list" src="img/list.svg">List</a>
+            <a class="btn btn-default" data-ng-class="{active: headerCtrl.route.current.$$route.activeTab == 'map'}" href="#/map"><img class="btn-icon" alt="map" src="img/map.svg">Map</a>
+            <a class="btn btn-default"><img class="btn-icon" alt="stat" src="img/stat.svg">Stat</a>
         </aside>
         <aside class="btn-group" id="user-svc" dropdown keyboard-nav>
             <button id="user" type="button" class="btn btn-info">
@@ -58,336 +63,7 @@
             </ul>
         </aside>
     </header>
-    <main id="list-space" data-ng-controller="cardSpaceCtrl as parentCtrl" data-ng-init="parentCtrl.loadTrees()">
-
-        <article data-ng-class="tree.district | distClassFilter" data-ng-repeat="tree in parentCtrl.trees" data-ng-controller="cardCtrl as ctrl">
-            <section class="photo-container" data-ng-class="{'flip': ctrl.backFace}">
-                <div class="photo">
-                    <div class="front face" data-ng-click="ctrl.toggleBackFace()">
-                        <img data-ng-repeat="photo in tree.photos" alt="tree photo {{$index}}" data-ng-src="data/tree_photos/{{photo.path}}" data-ng-class="{removed: tree.removed}">
-                    </div>
-                    <div class="back face">
-                        <img src="img/back.svg" alt="Back" id="back" data-ng-click="ctrl.toggleBackFace()">
-                        <section id="notice" data-ng-show="ctrl.currentPage == 1">
-                            <h2>Notice</h2>
-                            <div class="special-notice" data-ng-if="tree.removed" data-ng-show="ctrl.currentPage == 1">
-                                <h3>Removed on </h3>
-                                <h3>{{tree.removed_date | date:"d'th' MMMM yyyy"}}</h3>
-                                <h4>due to</h4>
-                                <h3 data-ng-repeat="reason in tree.removed_reasons" data-ng-bind="reason"></h3>
-                            </div>
-                        </section>
-                        <section id="information" data-ng-show="ctrl.currentPage == 2">
-                            <h2>Information</h2>
-                            <div class="register plate">
-                                <div class="part head" data-tooltip-placement="right" data-tooltip-append-to-body="true" data-tooltip="Highways Department">
-                                    <h1>HYD</h1>
-                                    <div>
-                                        <img alt="Highways Department" src="img/govt_dept/hyd.png" class="icon">
-                                    </div>
-                                </div>
-                                <div class="part number">
-                                    <h1 data-ng-bind="tree.register_no"></h1>
-                                </div>
-                            </div>
-                            <div class="species plate">
-                                <div class="part head">
-                                    <h1 data-tooltip-placement="top" data-tooltip="Government Owned">GOV</h1>
-                                    <div class="icon">
-                                        <img data-ng-if="tree.stone_wall_tree" alt="Stone Wall Tree" src="img/stone-wall-tree.svg" class="icon"  data-tooltip-placement="bottom" data-tooltip-append-to-body="true" data-tooltip-append-to-body="true" data-tooltip="Stone Wall Tree">
-                                    </div>
-                                </div>
-                                <div class="part species">
-                                    <h1 data-ng-bind="tree.species"></h1>
-                                </div>
-                            </div>
-                        </section>
-                        <section id="location" data-ng-show="ctrl.currentPage == 3">
-                            <h2>Location</h2>
-                            <div class="location-details plate">
-                                <div class="part head" data-ng-if="!!tree.location_details.simar" data-tooltip-placement="right" data-tooltip-append-to-body="true" data-tooltip="Systematic Identification of Maintenance Responsibility of Slopes">
-                                    <h1>SIM<br>AR</h1>
-                                </div>
-                                <div class="part simar_no" data-ng-if="!!tree.location_details.simar">
-                                    <h1 data-ng-bind="tree.location_details.simar_no"></h1>
-                                </div>
-                            </div>
-                            <div class="coordinate plate">
-                                <div class="part head" data-ng-if="!!tree.location_details.coordinate">
-                                    <h1>GPS</h1>
-                                    <div class="icon">
-                                        <img src="img/google_maps_icon.png" alt="Open in Google Maps View" class="icon" data-tooltip-placement="bottom" data-tooltip-append-to-body="true" data-tooltip-append-to-body="true" data-tooltip="Open in map view">
-                                    </div>
-                                </div>
-                                <div class="part" data-ng-if="!!tree.location_details.simar">
-                                    <div class="lat">
-                                        <h2>Latitude</h2>
-                                        <h1 data-ng-bind="tree.location_details.coordinate.lat | number:5"></h1>
-                                    </div>
-                                    <div class="lon">
-                                        <h2>Longitude</h2>
-                                        <h1 data-ng-bind="tree.location_details.coordinate.lon | number:4"></h1>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        <section id="pagination">
-                            <pagination data-direction-links="false" data-total-items="3" data-items-per-page="1" data-ng-model="ctrl.currentPage"></pagination>
-                        </section>
-
-                        <!--<button class="btn btn-primary btn-block">Read Previous Records</button>-->
-                    </div>
-                </div>
-            </section>
-
-            <section class="location">
-                <h3 data-ng-bind="tree.location"></h3>
-                <h3 data-ng-bind="tree.district | districtFilter"></h3>
-            </section>
-        </article>
-
-
-    </main>
-    <script>
-        var app = angular.module('main', ['ui.bootstrap']);
-        app.controller('headerCtrl', ['$modal', function($modal){
-            this.open = function(){
-                modalInstance = $modal.open({
-                    animation: true,
-                    templateUrl: 'headerModal.html',
-                    controller: 'headerModalCtrl as ctrl'
-                });
-            };
-        }]).controller('headerModalCtrl', ['$modalInstance', function($modalInstance){
-            this.close = function(){
-                console.log("testing");
-                $modalInstance.dismiss('read');
-            };
-        }]).controller('cardSpaceCtrl', ['FBUserSvc', 'dataSvc', function(FBUserSvc, dataSvc){
-            var self = this;
-            this.trees = [];
-            this.loadTrees = function(){
-                dataSvc.getData(0).then(function(res){
-                    console.log(res);
-                    self.trees = self.trees.concat(res.data.payload);
-                });
-            };
-        }]).controller('cardCtrl', ['govtSMRISDataSvc', function(govtSMRISDataSvc){
-            this.currentPage = 1;
-            this.backFace = false;
-            this.toggleBackFace = function(){
-                this.backFace = !this.backFace;
-            };
-        }]);
-
-        app.factory('FBUserSvc', ['$http', function($http){
-            var user = {
-                userID: "",
-                pwHash: ""
-            };
-            return {
-
-            };
-        }]).factory('dataSvc', ['$http', '$q', '$timeout', function($http, $q, $timeout){
-            return {
-                getData: function(offset){
-                    // mock
-                    var data = [{ // Reference object database schema (removed=false)
-                        district: "cw",
-                        location: "Arbuthnot Road",
-                        location_details: {
-                            simar: true,
-                            simar_no: "11sw-b/r74",
-                            coordinate: {
-                                lat: 22.279790330,
-                                lon: 114.154877119
-                            }
-                        },
-                        govt: true,
-                        dept: "hyd",
-                        removed: false,
-                        stone_wall_tree: true,
-                        species: "Ficus Microcarpa",
-                        register_no: "CW/002",
-                        dept_no: "hyd_hk_11sw_b_r74_0_wt2",
-                        photos: [{path: "hyd_hk_11sw_b_r74_0_wt2.jpg"}]
-                    }, { // Reference object database schema (removed=true)
-                        district: "cw",
-                        location: "Arbuthnot Road",
-                        location_details: {
-                            simar: true,
-                            simar_no: "11sw-b/r74",
-                            coordinate: {
-                                lat: 22.279790330,
-                                lon: 114.154877119
-                            }
-                        },
-                        govt: true,
-                        dept: "hyd",
-                        removed: true,
-                        removed_date: "2015-06-05T12:00:00.000Z",
-                        removed_reasons: ["Trunk Failure"],
-                        stone_wall_tree: true,
-                        species: "Ficus Virens Var. Sublanceolata",
-                        register_no: "CW/003",
-                        dept_no: "hyd_hk_11sw_b_r74_0_wt3",
-                        photos: [{path: "hyd_hk_11sw_b_r74_0_wt3.jpg"}]
-                    }, {
-                        district: "cw",
-                        location: "Arbuthnot Road",
-                        location_details: {
-                            simar: true,
-                            simar_no: "11sw-b/r74",
-                            coordinate: {
-                                lat: 22.279790330,
-                                lon: 114.154877119
-                            }
-                        },
-                        govt: true,
-                        dept: "hyd",
-                        removed: false,
-                        stone_wall_tree: false,
-                        species: "Ficus Virens Var. Sublanceolata",
-                        register_no: "CW/004",
-                        dept_no: "hyd_hk_11sw_b_r74_0_wt4",
-                        photos: [{path: "hyd_hk_11sw_b_r74_0_wt4.jpg"}]
-                    }, {
-                        district: "cw",
-                        location: "Borrett Road",
-                        location_details: {
-                            simar: true,
-                            simar_no: "11sw-b/r530",
-                            coordinate: {
-                                lat: 22.274896745,
-                                lon: 114.164590480
-                            }
-                        },
-                        govt: true,
-                        dept: "hyd",
-                        removed: false,
-                        stone_wall_tree: true,
-                        species: "Ficus Microcarpa",
-                        register_no: "CW/007",
-                        dept_no: "hyd_hk_11sw_b_r530_0_wt1",
-                        photos: [{path: "hyd_hk_11sw_b_r530_0_wt1.jpg"}]
-                    }, {
-                        district: "cw",
-                        location: "Bowen Road",
-                        location_details: {
-                            simar: true,
-                            simar_no: "11sw-b/fr124",
-                            coordinate: {
-                                lat: 22.274598157,
-                                lon: 114.158467993
-                            }
-                        },
-                        govt: true,
-                        dept: "hyd",
-                        removed: false,
-                        stone_wall_tree: false,
-                        species: "Ficus Virens Var. Sublanceolata",
-                        register_no: "CW/008",
-                        dept_no: "hyd_hk_11sw_b_fr124_0_wt1",
-                        photos: [{path: "hyd_hk_11sw_b_fr124_0_wt1.jpg"}]
-                    }];
-                    return $q(function(resolve, reject){
-                        $timeout(1000).then(function(){
-                            resolve({data: {payload: data.slice(offset)}});
-                        });
-                    });
-                    // ----
-
-                    /* API Service
-                    return $http.get('api/trees', {params: {'offset': offset}});
-                    */
-                }
-            };
-        }]).factory('govtSMRISDataSvc', ['$http', function($http){
-            return {
-                getSlope: function(sn){
-                    return $http.get('http://www2.slope.landsd.gov.hk/smris/getSlopeBySlopeNo', {params: {'sn': sn}});
-                },
-                getSlopeTechInfo: function(sn){
-                    return $http.get('http://www2.slope.landsd.gov.hk/smris/getSlopeTechInfo', {params: {'sn': sn}});
-                }
-            }
-        }]);
-
-        app.filter('districtFilter', [function(){
-            var dist_table = {
-                 cw: 'Central and Western',
-                  e: 'Eastern',
-                  s: 'Southern',
-                 wc: 'Wan Chai',
-                 kc: 'Kowloon City',
-                ktn: 'Kwun Tong',
-                ssp: 'Sham Shui Po',
-                wts: 'Wong Tai Sin',
-                ytm: 'Yau Tsim Mong',
-                 is: 'Island',
-                kts: 'Kwai Tsing',
-                  n: 'North',
-                 sk: 'Sai Kung',
-                 st: 'Sha Tin',
-                 tp: 'Tai Po',
-                 tw: 'Tsuen Wan',
-                 tm: 'Tuen Mun',
-                 yl: 'Yuen Long'
-            };
-            return function(input){
-                return dist_table[input];
-            };
-        }]).filter('areaFilter', [function(){
-            var area_table = {
-                 cw: 'Hong Kong',
-                  e: 'Hong Kong',
-                  s: 'Hong Kong',
-                 wc: 'Hong Kong',
-                 kc: 'Kowloon',
-                ktn: 'Kowloon',
-                ssp: 'Kowloon',
-                wts: 'Kowloon',
-                ytm: 'Kowloon',
-                 is: 'New Territories',
-                kts: 'New Territories',
-                  n: 'New Territories',
-                 sk: 'New Territories',
-                 st: 'New Territories',
-                 tp: 'New Territories',
-                 tw: 'New Territories',
-                 tm: 'New Territories',
-                 yl: 'New Territories'
-            };
-            return function(input){
-                return area_table[input];
-            };
-        }]).filter('distClassFilter', [function(){
-            var dist_table = {
-                 cw: 'central-and-western',
-                  e: 'eastern',
-                  s: 'southern',
-                 wc: 'wan-chai',
-                 kc: 'kowloon-city',
-                ktn: 'Kwun-tong',
-                ssp: 'sham-shui-po',
-                wts: 'wong-tai-sin',
-                ytm: 'yau-tsim-mong',
-                 is: 'island',
-                kts: 'kwai-tsing',
-                  n: 'north',
-                 sk: 'sai-kung',
-                 st: 'sha-tin',
-                 tp: 'tai-po',
-                 tw: 'tsuen-wan',
-                 tm: 'tuen-mun',
-                 yl: 'yuen-long'
-            };
-            return function(input){
-                var temp = {};
-                temp[dist_table[input]] = true;
-                return temp;
-            }
-        }]);
-    </script>
+    <main id="wrapper" data-ng-view></main>
+    <script src="script/app.js"></script>
 </body>
 </html>

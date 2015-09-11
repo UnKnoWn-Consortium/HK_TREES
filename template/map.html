@@ -1,0 +1,5 @@
+<main id="map-space" data-ng-controller="mapSpaceCtrl as parentCtrl" data-ng-init="parentCtrl.loadTrees()">
+    <ui-gmap-google-map center='parentCtrl.map.center' zoom='parentCtrl.map.zoom' dragging="true">
+        <ui-gmap-markers  models="parentCtrl.trees" idKey="'register_no'" coords="'coordinate'" type="'cluster'"></ui-gmap-markers>
+    </ui-gmap-google-map>
+</main>

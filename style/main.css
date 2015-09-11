@@ -62,7 +62,7 @@ header aside.btn-group {
     top: 25px;
 }
 
-header aside.btn-group button{
+header aside.btn-group a{
     font-size: 18px;
     font-family: 'Open Sans Condensed', sans-serif;
     font-weight: bold;
@@ -90,6 +90,10 @@ header aside.btn-group#user-svc #username {
     margin-right: 3px;
 }
 
+main#wrapper {
+    padding-top: 100px;
+}
+
 main#list-space {
     /*background: url("../img/background/graphy1.png") repeat;*/
     display: -webkit-box;
@@ -105,8 +109,20 @@ main#list-space {
     -webkit-align-content: flex-start;
     -ms-flex-line-pack: start;
     align-content: flex-start;
-    padding-top: 100px;
     overflow-y: auto;
+}
+
+main#map-space {
+    height: 100%;
+    width: 100%;
+}
+
+main#map-space .angular-google-map-container {
+    position: absolute;
+    top: 90px;
+    bottom: 0;
+    right: 0;
+    left: 0;
 }
 
 article {
@@ -115,7 +131,7 @@ article {
     border: solid 1px rgba(215, 215, 215, 1);
     border-radius: 3px;
     box-shadow: 2px 2px rgba(215, 215, 215, 1);
-    height: 560px;
+    height: 540px;
     width: 320px;
     padding: 5px;
     margin: 5px;

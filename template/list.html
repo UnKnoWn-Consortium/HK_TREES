@@ -7,16 +7,16 @@
                 </div>
                 <div class="back face">
                     <img src="img/back.svg" alt="Back" id="back" data-ng-click="ctrl.toggleBackFace()">
-                    <section id="notice" data-ng-show="ctrl.currentPage == 1">
+                    <section id="notice" data-ng-show="ctrl.currentPage == ctrl.genPageNum(tree.removed, 'notice')" data-ng-if="tree.removed">
                         <h2>Notice</h2>
-                        <div class="special-notice" data-ng-if="tree.removed" data-ng-show="ctrl.currentPage == 1">
+                        <div class="special-notice" data-ng-if="tree.removed" data-ng-if="ctrl.currentPage == 1">
                             <h3>Removed on </h3>
                             <h3>{{tree.removed_date | date:"d'th' MMMM yyyy"}}</h3>
                             <h4>due to</h4>
                             <h3 data-ng-repeat="reason in tree.removed_reasons" data-ng-bind="reason"></h3>
                         </div>
                     </section>
-                    <section id="information" data-ng-show="ctrl.currentPage == 2">
+                    <section id="information" data-ng-if="ctrl.currentPage == ctrl.genPageNum(tree.removed, 'information')">
                         <h2>Information</h2>
                         <div class="register plate">
                             <div class="part head" data-tooltip-placement="right" data-tooltip-append-to-body="true" data-tooltip="Highways Department">
@@ -26,22 +26,32 @@
                                 </div>
                             </div>
                             <div class="part number">
-                                <h1 data-ng-bind="tree.register_no"></h1>
+                                <h1 data-ng-bind="tree.register_no | registerNoFilter"></h1>
                             </div>
                         </div>
                         <div class="species plate">
                             <div class="part head">
                                 <h1 data-tooltip-placement="top" data-tooltip="Government Owned">GOV</h1>
                                 <div class="icon">
-                                    <img data-ng-if="tree.stone_wall_tree" alt="Stone Wall Tree" src="img/stone-wall-tree.svg" class="icon"  data-tooltip-placement="bottom" data-tooltip-append-to-body="true" data-tooltip-append-to-body="true" data-tooltip="Stone Wall Tree">
+                                    <img data-ng-if="tree.stone_wall_tree" alt="Stone Wall Tree" src="img/stone-wall-tree.svg" class="icon"  data-tooltip-placement="bottom" data-tooltip-append-to-body="true" data-tooltip="Stone Wall Tree">
                                 </div>
                             </div>
                             <div class="part species">
                                 <h1 data-ng-bind="tree.species"></h1>
                             </div>
                         </div>
+                        <div class="old-and-val plate" data-ng-if="!!tree.old_and_val">
+                            <div class="part head" data-tooltip-placement="bottom" data-tooltip-append-to-body="true" data-tooltip="Old and Valuable">
+                                <h1>OLD</h1>
+                                <h1>VAL</h1>
+                            </div>
+                            <div class="part">
+                                <h2>Old and Valuable<br>Tree Register No.</h2>
+                                <h1 data-ng-bind="tree.old_and_val_no"></h1>
+                            </div>
+                        </div>
                     </section>
-                    <section id="location" data-ng-show="ctrl.currentPage == 3">
+                    <section id="location" data-ng-if="ctrl.currentPage == ctrl.genPageNum(tree.removed, 'location')">
                         <h2>Location</h2>
                         <div class="location-details plate">
                             <div class="part head" data-ng-if="!!tree.simar_no" data-tooltip-placement="right" data-tooltip-append-to-body="true" data-tooltip="Systematic Identification of Maintenance Responsibility of Slopes">
@@ -55,7 +65,7 @@
                             <div class="part head">
                                 <h1>GPS</h1>
                                 <div class="icon">
-                                    <img src="img/google_maps_icon.png" alt="Open in Google Maps View" class="icon" data-tooltip-placement="bottom" data-tooltip-append-to-body="true" data-tooltip-append-to-body="true" data-tooltip="Open in map view">
+                                    <img src="img/google_maps_icon.png" alt="Open in Google Maps View" class="icon" data-tooltip-placement="bottom" data-tooltip-append-to-body="true" data-tooltip="Open in map view">
                                 </div>
                             </div>
                             <div class="part">
@@ -71,7 +81,7 @@
                         </div>
                     </section>
                     <section id="pagination">
-                        <pagination data-direction-links="false" data-total-items="3" data-items-per-page="1" data-ng-model="ctrl.currentPage"></pagination>
+                        <pagination data-direction-links="false" data-total-items="ctrl.updatePages(tree.removed)" data-items-per-page="1" data-ng-model="ctrl.currentPage"></pagination>
                     </section>
 
                     <!--<button class="btn btn-primary btn-block">Read Previous Records</button>-->

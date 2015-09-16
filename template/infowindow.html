@@ -1,0 +1,94 @@
+<article data-ng-class="parameter.district | distClassFilter" data-ng-controller="cardCtrl as ctrl">
+    <section class="photo-container" data-ng-class="{'flip': ctrl.backFace}">
+        <div class="photo">
+            <div class="front face" data-ng-click="ctrl.toggleBackFace()">
+                <img data-ng-repeat="photo in parameter.photos" alt="tree photo {{$index}}" data-ng-src="data/tree_photos/{{photo.path}}" data-ng-class="{removed: parameter.removed}">
+            </div>
+            <div class="back face">
+                <img src="img/back.svg" alt="Back" id="back" data-ng-click="ctrl.toggleBackFace()">
+                <section id="notice" data-ng-if="ctrl.currentPage == ctrl.genPageNum(parameter.removed, 'notice')">
+                    <h2>Notice</h2>
+                    <div class="special-notice" data-ng-if="parameter.removed" data-ng-if="ctrl.currentPage == ctrl.genPageNum(parameter.removed, 'information')">
+                        <h3>Removed on </h3>
+                        <h3>{{parameter.removed_date | date:"d'th' MMMM yyyy"}}</h3>
+                        <h4>due to</h4>
+                        <h3 data-ng-repeat="reason in parameter.removed_reasons" data-ng-bind="reason"></h3>
+                    </div>
+                </section>
+                <section id="information" data-ng-if="ctrl.currentPage == ctrl.genPageNum(parameter.removed, 'information')">
+                    <h2>Information</h2>
+                    <div class="register plate">
+                        <div class="part head" data-tooltip-placement="right" data-tooltip-append-to-body="true" data-tooltip="Highways Department">
+                            <h1>HYD</h1>
+                            <div>
+                                <img alt="Highways Department" src="img/govt_dept/hyd.png" class="icon">
+                            </div>
+                        </div>
+                        <div class="part number">
+                            <h1 data-ng-bind="parameter.register_no | registerNoFilter"></h1>
+                        </div>
+                    </div>
+                    <div class="species plate">
+                        <div class="part head">
+                            <h1 data-tooltip-placement="top" data-tooltip="Government Owned">GOV</h1>
+                            <div class="icon">
+                                <img data-ng-if="parameter.stone_wall_tree" alt="Stone Wall Tree" src="img/stone-wall-tree.svg" class="icon"  data-tooltip-placement="bottom" data-tooltip-append-to-body="true" data-tooltip="Stone Wall Tree">
+                            </div>
+                        </div>
+                        <div class="part species">
+                            <h1 data-ng-bind="parameter.species"></h1>
+                        </div>
+                    </div>
+                    <div class="old-and-val plate" data-ng-if="!!parameter.old_and_val">
+                        <div class="part head" data-tooltip-placement="bottom" data-tooltip-append-to-body="true" data-tooltip="Old and Valuable">
+                            <h1>OLD</h1>
+                            <h1>VAL</h1>
+                        </div>
+                        <div class="part">
+                            <h2>Old and Valuable<br>Tree Register No.</h2>
+                            <h1 data-ng-bind="parameter.old_and_val_no"></h1>
+                        </div>
+                    </div>
+                </section>
+                <section id="location" data-ng-if="ctrl.currentPage == ctrl.genPageNum(parameter.removed, 'location')">
+                    <h2>Location</h2>
+                    <div class="location-details plate">
+                        <div class="part head" data-ng-if="!!parameter.simar_no" data-tooltip-placement="right" data-tooltip-append-to-body="true" data-tooltip="Systematic Identification of Maintenance Responsibility of Slopes">
+                            <h1>SIM<br>AR</h1>
+                        </div>
+                        <div class="part simar_no" data-ng-if="!!parameter.simar_no">
+                            <h1 data-ng-bind="parameter.simar_no"></h1>
+                        </div>
+                    </div>
+                    <div class="coordinate plate" data-ng-if="!!parameter.coordinate">
+                        <div class="part head">
+                            <h1>GPS</h1>
+                            <div class="icon">
+                                <img src="img/google_maps_icon.png" alt="Open in Google Maps View" class="icon" data-tooltip-placement="bottom" data-tooltip-append-to-body="true" data-tooltip="Open in map view">
+                            </div>
+                        </div>
+                        <div class="part">
+                            <div class="lat">
+                                <h2>Latitude</h2>
+                                <h1>{{parameter.coordinate.latitude | number:5}}</h1>
+                            </div>
+                            <div class="lon">
+                                <h2>Longitude</h2>
+                                <h1>{{parameter.coordinate.longitude | number:4}}</h1>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="pagination">
+                    <pagination data-direction-links="false" data-total-items="ctrl.updatePages(parameter.removed)" data-items-per-page="1" data-ng-model="ctrl.currentPage"></pagination>
+                </section>
+
+                <!--<button class="btn btn-primary btn-block">Read Previous Records</button>-->
+            </div>
+        </div>
+    </section>
+    <section class="location">
+        <h3 data-ng-bind="parameter.location"></h3>
+        <h3 data-ng-bind="parameter.district | districtFilter"></h3>
+    </section>
+</article>

@@ -9,11 +9,8 @@ app.config(['$routeProvider', 'uiGmapGoogleMapApiProvider', function($routeProvi
         activeTab: 'list'
     }).when('/map', {
         templateUrl: 'template/map.html',
-        activeTab: 'map'
-    }).when('/map/:dept/:district/:id', {
-        templateUrl: 'template/map.html',
-        reloadOnSearch: false,
-        activeTab: 'map'
+        activeTab: 'map',
+        reloadOnSearch: false
     });/*.when('/裝備篇', {
      templateUrl: 'equipment.html',
      controller: 'equipmentCtrl',
@@ -59,19 +56,20 @@ app.controller('headerCtrl', ['$modal', '$route', function($modal, $route){
         });
     };
 }]).controller('mapSpaceCtrl', ['$scope', '$location', '$routeParams', '$timeout', 'FBUserSvc', 'dataSvc', 'uiGmapGoogleMapApi', function($scope, $location, $routeParams, $timeout, FBUserSvc, dataSvc, uiGmapGoogleMapApi){
-    console.log($location);
-    console.log($routeParams);
     var self = this;
     this.map = {
+        control: {},
         center: {
             latitude: 22.3576782,
             longitude: 114.1210181
         },
         zoom: 11,
-        markers: {},
+        markers: {
+            control: {}
+        },
         markersEvents: {
             mouseover: function(gMarker, evtName, model, args){
-                google.maps.event.addListener(self.map.window.control.getGWindows()[0], 'domready', function() { // Adjusting the native Google Maps JavaScript API InfoWindow
+                google.maps.event.addListener(self.map.window.control.getGWindows()[0], 'domready', function(){ // Adjusting the native Google Maps JavaScript API InfoWindow
                     var iwOuter = $('.gm-style-iw');
                     var iwCloseBtn = iwOuter.next();
                     var iwCloseBtnImg = iwCloseBtn.children('img');
@@ -88,10 +86,8 @@ app.controller('headerCtrl', ['$modal', '$route', function($modal, $route){
                 });
             },
             click: function(gMarker, evtName, model, args){
-                $location.path('/map/' + model.register_no);
-                $scope.$apply(function(){
-                    self.map.window.show = false;
-                });
+                $location.search('registerNo', model.register_no);
+                self.map.window.show = false;
                 $timeout(100).then(function(){
                     self.map.window.show = true;
                     self.map.window.model = model;
@@ -114,17 +110,37 @@ app.controller('headerCtrl', ['$modal', '$route', function($modal, $route){
             }
         }
     };
-    test = self.map.window.control;
     this.trees = [];
-    this.loadTrees = function(){
+    this.loadTreesCheckLink = function(){
         dataSvc.getData(0).then(function(res){
             self.trees = self.trees.concat(res.data.payload);
+            $timeout(100).then(function(){
+                if ($routeParams.hasOwnProperty('registerNo')){
+                    var gMap = self.map.control.getGMap();
+                    var target = $routeParams.registerNo;
+                    var gMarkers = self.map.markers.control.getGMarkers();
+                    var targetMarker;
+                    for (var i = 0; i < gMarkers.length; i++){
+                        if (gMarkers[i].model.register_no == target){
+                            targetMarker = gMarkers[i];
+                        }
+                    }
+                    gMap.setZoom(18);
+                    gMap.panTo(targetMarker.getPosition());
+                    google.maps.event.trigger(targetMarker, 'click');
+                    google.maps.event.trigger(targetMarker, 'mouseover');
+                }
+                google.maps.event.addListener(self.map.control.getGMap(), 'click', function(){
+                    self.map.window.control.getGWindows()[0].close();
+                    $location.search("registerNo", null);
+                    console.log("click");
+                });
+            });
         });
-    };
-    uiGmapGoogleMapApi.then(function(){
-        self.map.window.options.pixelOffset = new google.maps.Size(0, -42.5, 'px', 'px');
+        uiGmapGoogleMapApi.then(function(){
+            self.map.window.options.pixelOffset = new google.maps.Size(0, -42.5, 'px', 'px');
     });
-
+    };
 }]).controller('cardCtrl', ['govtSMRISDataSvc', function(govtSMRISDataSvc){
     this.pages = 1;
     this.currentPage = 1;
